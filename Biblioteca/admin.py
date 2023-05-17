@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Autor
+from .models import Autor, Libro
 # Register your models here.
 
 @admin.register(Autor)
@@ -9,9 +9,9 @@ class AutorAdmin(admin.ModelAdmin):
     search_fields = ('nombre', 'apellido')
     list_filter = ['activo']
 
-@admin.register(Autor)
+@admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
-    """ Registrar la entidad Autor en el admin  """
+    """ Registrar la entidad Libro en el admin  """
     list_display = ('titulo', 'descripcion', 'isbn', 'autor', 'activo')
     search_fields = ('titulo')
     list_filter = ['activo']

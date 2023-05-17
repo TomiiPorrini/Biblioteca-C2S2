@@ -7,6 +7,13 @@ class Autor(models.Model):
     nacionalidad = models.CharField(max_length=50)
     activo = models.BooleanField(default=True)
 
+class Libro(models.Model):
+    titulo = models.CharField(max_length=30)
+    descripcion = models.CharField(max_length=100)
+    isbn = models.IntegerField()
+    autor = models.ForeignKey(Autor)
+    activo = models.BooleanField(default=True)
+
 class PrestamoLibro(models.Model):
     fecha_prestamos = models.DateField(auto_now_add=True)
     fecha_devolucion = models.DateField(auto_now_add=True)

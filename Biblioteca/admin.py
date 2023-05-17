@@ -9,6 +9,13 @@ class AutorAdmin(admin.ModelAdmin):
     search_fields = ('nombre', 'apellido')
     list_filter = ['activo']
 
+@admin.register(Autor)
+class LibroAdmin(admin.ModelAdmin):
+    """ Registrar la entidad Autor en el admin  """
+    list_display = ('titulo', 'descripcion', 'isbn', 'autor', 'activo')
+    search_fields = ('titulo')
+    list_filter = ['activo']
+
 class PrestamoLibroAdmin(admin.PrestamoLibro):
     """ Registrar la entidad PrestamoLibro en el admin. """
     list_display = ('fecha_pestammos','fecha_devolucion','socio','empleado','libro')

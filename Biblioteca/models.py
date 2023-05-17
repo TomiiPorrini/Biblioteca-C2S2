@@ -6,3 +6,10 @@ class Autor(models.Model):
     apellido = models.CharField(max_length=50)
     nacionalidad = models.CharField(max_length=50)
     activo = models.BooleanField(default=True)
+
+class PrestamoLibro(models.Model):
+    fecha_prestamos = models.DateField(auto_now_add=True)
+    fecha_devolucion = models.DateField(auto_now_add=True)
+    socio = models.ForeignKey(Socio)
+    empleado = models.ForeignKey(Empleado)
+    libro = models.ForeignKey(Libro)

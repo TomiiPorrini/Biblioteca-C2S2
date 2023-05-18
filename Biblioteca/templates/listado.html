@@ -6,7 +6,7 @@
 </head>
 <body>
 <!--tabla de bootstrap -->
-<table class="table text-center">
+<!--<table class="table text-center">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -31,6 +31,18 @@
     </tr>
     {% endfor %}
   </tbody>
-</table>
+</table> -->
+
+<div>
+  {% for e in empleados %}
+
+  {{ e.id }}<br/>
+  {{ e.nombre }}<br/>
+  {{ e.apellido }}<br/>
+  {{ e.numero_legajo }}<br/>
+  {{ e.activo }}<br/>
+  <hr/>
+  {% endfor %}
+</div>
 </body>
 </html>

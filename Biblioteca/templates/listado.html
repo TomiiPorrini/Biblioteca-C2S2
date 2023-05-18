@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado</title>
+</head>
+<body>
+<!--tabla de bootstrap -->
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Legajo</th>
+      <th scope="col">Activo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in empleados %}
+    <tr>
+      <th scope="row">{{ e.id }}</th>
+      <td>{{ e.nombre }}</td>
+      <td>{{ e.apellido }}</td>
+      <td>{{ e.numero_legajo }}</td>
+      {% if e.activo %}
+      <td>SI</td>
+      {% else %}
+      <td>NO</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import empleado
-from .forms import empleadoForm
+from .forms import EmpleadoForm
 # Create your views here.
 
 def crear_empleado(request):
-    form = empleadoForm()
+    form = EmpleadoForm()
     
     if request.method == 'POST':
-        form = empleadoForm(request.POST)
+        form = EmpleadoForm(request.POST)
         if form.is_valid():
             form.save()
             print("Todo salio bien")
@@ -21,7 +21,7 @@ def modificar_empleado(request, id):
     
     empleadoEditar = get_object_or_404(empleado, id = id)
 
-    form = empleadoForm(initial={
+    form = EmpleadoForm(initial={
         'nombre':empleadoEditar.nombre ,
         'apellido':empleadoEditar.apellido ,
         'numero_legajo':empleadoEditar.numero_legajo
@@ -29,7 +29,7 @@ def modificar_empleado(request, id):
     
     if request.method == 'POST':
         
-        form = empleadoForm(request.POST)
+        form = EmpleadoForm(request.POST)
         
         if form.is_valid():
             # form.save()

@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from .models import empleado
+from .models import Empleado
 
-class empleadoForm(ModelForm):
+class EmpleadoForm(ModelForm):
     class Meta:
-        model = empleado
+        model = Empleado
         fields = ['nombre','apellido','numero_legajo']

@@ -14,7 +14,7 @@ def crear_empleado(request):
         else:
             print("algo salio mal")
     
-    return render(request, 'crear-update_empleado.html', {'form': form, 'submit': 'Crear empleado'})
+    return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
 
 
 def modificar_empleado(request, id):
@@ -44,4 +44,4 @@ def modificar_empleado(request, id):
         else:
             print("algo salio mal")
 
-    return render(request, 'crear-update_empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
+    return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})

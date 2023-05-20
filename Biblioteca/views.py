@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import empleado
-from .forms import EmpleadoForm
+from .models import Empleado
+from .forms import EmpleadoForm, EmpleadoActualizarForm
 # Create your views here.
 
 def crear_empleado(request):
@@ -19,13 +19,13 @@ def crear_empleado(request):
 
 def modificar_empleado(request, id):
     
-    empleadoEditar = get_object_or_404(empleado, id = id)
+    empleadoEditar = get_object_or_404(Empleado, id = id)
 
-    form = EmpleadoForm(initial={
+    form = EmpleadoActualizarForm(initial={
         'nombre':empleadoEditar.nombre ,
         'apellido':empleadoEditar.apellido ,
-        'numero_legajo':empleadoEditar.numero_legajo
-    })
+        'numero_legajo':empleadoEditar.numero_legajo,
+        'activo':empleadoEditar.activo })
     
     if request.method == 'POST':
         
@@ -39,6 +39,7 @@ def modificar_empleado(request, id):
             empleadoEditar.nombre = form.cleaned_data['nombre']
             empleadoEditar.apellido = form.cleaned_data['apellido']
             empleadoEditar.numero_legajo = form.cleaned_data['numero_legajo']
+            empleadoEditar.activo = form.cleaned_data['activo']
             
             empleadoEditar.save()
         else:

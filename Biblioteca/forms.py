@@ -5,3 +5,8 @@ class EmpleadoForm(ModelForm):
     class Meta:
         model = Empleado
         fields = ['nombre','apellido','numero_legajo']
+        
+class EmpleadoActualizarForm(ModelForm):
+    class Meta:
+        model = Empleado
+        fields = ['nombre','apellido','numero_legajo', 'activo']

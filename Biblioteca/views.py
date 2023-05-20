@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import empleado
+from .models import Empleado
 
 
 def empleados(request):
-    empleados = empleado.objects.all()
+    empleados = Empleado.objects.all()
 
-    return render(request, 'listado.html', {'empleados': empleados})
+    return render(request, 'listado-empleados.html', {'empleados': empleados})
 

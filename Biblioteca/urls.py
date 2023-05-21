@@ -3,6 +3,5 @@ from Biblioteca import views
 
 
 urlpatterns = [
-    
-    path('empleado/listado', views.empleados)
+    path('empleados/desactivar/<int:id>', views.desactivar_empleado_view),
 ]

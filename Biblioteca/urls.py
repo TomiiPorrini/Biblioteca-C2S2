@@ -5,5 +5,5 @@ from Biblioteca import views
 urlpatterns = [
     path("empleados/nuevo/", views.crear_empleado, name='crear-empleado'),
     path("empleados/modificar/<int:id>", views.modificar_empleado, name='modificar-empleado')
-    
+    path('empleado/listado', views.empleados)
 ]

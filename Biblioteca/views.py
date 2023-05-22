@@ -46,3 +46,9 @@ def modificar_empleado(request, id):
             print("algo salio mal")
 
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
+
+def empleados(request):
+    empleados = Empleado.objects.all()
+
+    return render(request, 'listado-empleados.html', {'empleados': empleados})
+

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block 'contenido' %}
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Nacionalidad</th>
+      <th scope="col">Activo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in autores %}
+    <tr>
+      <th scope="row">{{ a.id }}</th>
+      <td>{{ a.nombre }}</td>
+      <td>{{ a.apellido }}</td>
+      <td>{{ a.nacionalidad }}</td>
+      {% if a.activo %}
+      <td>
+        <i class="fa-solid fa-circle-check" style="color: #80ff00;"></i>
+      </td>
+      {% else %}
+      <td>
+        <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+      </td>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

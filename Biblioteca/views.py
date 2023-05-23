@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from Biblioteca.models import Empleado
-from .forms import EmpleadoForm, EmpleadoActualizarForm
+from Biblioteca.models import Empleado, Autor
+from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm
 
 # Create your views here.
 def activar_empleado_view(request, id):
@@ -58,3 +58,13 @@ def empleados(request):
     empleados = Empleado.objects.all()
 
     return render(request, 'listado-empleados.html', {'empleados': empleados})
+
+def crear_autor(request):
+    form = AutorForm()
+    
+    if request.method == 'POST':
+        form = AutorForm(request.POST)
+        if form.is_valid():
+            form.save()
+    
+    return render(request, 'crear_autor.html', {'form': form, 'submit': 'Crear Autor'})

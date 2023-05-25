@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorActualizarForm
+from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm
 from .models import Empleado, Autor
 
 # Create your views here.
@@ -69,6 +69,15 @@ def autores(request):
     autores = Autor.objects.all()
     return render(request, 'listado-autores.html', {'autores': autores})
 
+def crear_autor(request):
+    form = AutorForm()
+    
+    if request.method == 'POST':
+        form = AutorForm(request.POST)
+        if form.is_valid():
+            form.save()
+    
+    return render(request, 'crear_autor.html', {'form': form, 'submit': 'Crear Autor'})
 
 def activar_autor_view(request, id):
     autor = Autor.objects.filter(id=id).first()
@@ -81,7 +90,6 @@ def desactivar_autor_view(request,id):
     autor.activo = False
     autor.save()
     return HttpResponse(f'<h1> el Autor {autor.nombre} {autor.apellido} ha sido desactivado correctamente </h1>')
-    
 
 def modificar_autor(request, id):
     autor = get_object_or_404(Autor, id = id)

@@ -19,7 +19,7 @@ def desactivar_empleado_view(request, id):
     empleado = Empleado.objects.filter(id=id).first()
     empleado.activo=False
     empleado.save()
-    return HttpResponse(f'<h1>Empleado {empleado.nombre} {empleado.apellido} desactivado correctamente</h1>')
+    return HttpResponse(f'<h1>Empleado "{empleado.nombre} {empleado.apellido}" desactivado correctamente</h1>')
 
 def crear_empleado(request):
     form = EmpleadoForm()
@@ -33,7 +33,6 @@ def crear_empleado(request):
             print("algo salio mal")
     
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
-
 
 def modificar_empleado(request, id):
     

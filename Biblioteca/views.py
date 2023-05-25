@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from Biblioteca.models import Empleado
-from .forms import EmpleadoForm, EmpleadoActualizarForm
+from Biblioteca.models import Autor, Empleado
+from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorActualizarForm
 
 # Create your views here.
 def activar_empleado_view(request, id):
@@ -58,3 +58,36 @@ def empleados(request):
     empleados = Empleado.objects.all()
 
     return render(request, 'listado-empleados.html', {'empleados': empleados})
+
+def modificar_autor(request, id):
+    autor = get_object_or_404(Autor, id = id)
+
+    form = AutorActualizarForm(initial={
+        'nombre':autor.nombre ,
+        'apellido':autor.apellido ,
+        'nacionalidad':autor.nacionalidad,
+        # 'activo':autor.activo 
+        })
+
+    
+    if request.method == 'POST':
+        form = AutorActualizarForm(request.POST)
+        if form.is_valid():
+            if form.has_changed():
+                print('El form fue modificado')
+                # form.save()
+                autor.nombre = form.cleaned_data['nombre']
+                autor.apellido = form.cleaned_data['apellido']
+                autor.nacionalidad = form.cleaned_data['nacionalidad']
+                # autor.activo = form.cleaned_data['activo']
+                autor.save()
+                print("Datos cargados con éxito.")
+            else:
+                print('No se modifico ningun dato.')
+        else:
+            print("Hubo un error al cargar los datos del form.")
+
+    return render(request, 'crear_editar_autor.html', {
+        'form' : form,
+        'submit_value' : "Actualizar Autor"
+    })

@@ -14,4 +14,5 @@ class EmpleadoActualizarForm(ModelForm):
 class AutorActualizarForm(ModelForm):
     class Meta:
         model = Autor
-        fields = ['nombre','apellido','nacionalidad','activo']
+        fields = '__all__'
+        exclude = ['activo']

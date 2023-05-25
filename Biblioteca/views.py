@@ -1,15 +1,26 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from Biblioteca.models import Empleado, Autor
+from .models import Empleado, Autor
 from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorActualizarForm
 
 # Create your views here.
+def empleados(request):
+    empleados = Empleado.objects.all()
+
+    return render(request, 'listado-empleados.html', {'empleados': empleados})
+
 def activar_empleado_view(request, id):
     empleado = Empleado.objects.filter(id=id).first()
     empleado.activo=True
     empleado.save()
     return HttpResponse(f'<h1>Empleado "{empleado.nombre} {empleado.apellido}" activado correctamente</h1>')
 
+def desactivar_empleado_view(request, id):
+    empleado = Empleado.objects.filter(id=id).first()
+    empleado.activo=False
+    empleado.save()
+    return HttpResponse(f'<h1>Empleado {empleado.nombre} {empleado.apellido} desactivado correctamente</h1>')
+  
 def crear_empleado(request):
     form = EmpleadoForm()
     
@@ -53,12 +64,6 @@ def modificar_empleado(request, id):
             print("algo salio mal")
 
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
-
-def empleados(request):
-    empleados = Empleado.objects.all()
-
-    return render(request, 'listado-empleados.html', {'empleados': empleados})
-
 
 def autores(request):
     autores = Autor.objects.all()

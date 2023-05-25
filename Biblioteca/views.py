@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from Biblioteca.models import Autor, Empleado
+from Biblioteca.models import Empleado, Autor
 from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorActualizarForm
 
 # Create your views here.
@@ -58,6 +58,12 @@ def empleados(request):
     empleados = Empleado.objects.all()
 
     return render(request, 'listado-empleados.html', {'empleados': empleados})
+
+
+def autores(request):
+    autores = Autor.objects.all()
+
+    return render(request, 'listado-autores.html', {'autores': autores})
 
 def modificar_autor(request, id):
     autor = get_object_or_404(Autor, id = id)

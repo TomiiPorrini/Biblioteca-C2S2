@@ -15,3 +15,10 @@ class AutorForm(ModelForm):
     class Meta:
         model = Autor
         fields = ['nombre', 'apellido', 'nacionalidad', 'activo']
+
+class AutorActualizarForm(ModelForm):
+    class Meta:
+        model = Autor
+        fields = '__all__'
+        exclude = ['activo']
+

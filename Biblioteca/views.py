@@ -4,22 +4,12 @@ from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActuali
 from .models import Empleado, Autor
 
 # Create your views here.
+
+# Empleado
 def empleados(request):
     empleados = Empleado.objects.all()
 
     return render(request, 'listado-empleados.html', {'empleados': empleados})
-
-def activar_empleado_view(request, id):
-    empleado = Empleado.objects.filter(id=id).first()
-    empleado.activo=True
-    empleado.save()
-    return HttpResponse(f'<h1>Empleado "{empleado.nombre} {empleado.apellido}" activado correctamente</h1>')
-
-def desactivar_empleado_view(request, id):
-    empleado = Empleado.objects.filter(id=id).first()
-    empleado.activo=False
-    empleado.save()
-    return HttpResponse(f'<h1>Empleado "{empleado.nombre} {empleado.apellido}" desactivado correctamente</h1>')
 
 def crear_empleado(request):
     form = EmpleadoForm()
@@ -33,6 +23,18 @@ def crear_empleado(request):
             print("algo salio mal")
     
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
+
+def activar_empleado_view(request, id):
+    empleado = Empleado.objects.filter(id=id).first()
+    empleado.activo=True
+    empleado.save()
+    return redirect('empleados')
+
+def desactivar_empleado_view(request, id):
+    empleado = Empleado.objects.filter(id=id).first()
+    empleado.activo=False
+    empleado.save()
+    return redirect('empleados')
 
 def modificar_empleado(request, id):
     
@@ -64,6 +66,8 @@ def modificar_empleado(request, id):
 
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
 
+# Autor
+
 def autores(request):
     autores = Autor.objects.all()
     return render(request, 'listado-autores.html', {'autores': autores})
@@ -76,19 +80,19 @@ def crear_autor(request):
         if form.is_valid():
             form.save()
     
-    return render(request, 'crear_autor.html', {'form': form, 'submit': 'Crear Autor'})
+    return render(request, 'crear-editar-autor.html', {'form': form, 'submit': 'Crear Autor'})
 
 def activar_autor_view(request, id):
     autor = Autor.objects.filter(id=id).first()
     autor.activo = True
     autor.save()
-    return HttpResponse(f'<h1> el Autor {autor.nombre} {autor.apellido} ha sido activado correctamente </h1>')
+    return redirect('autores')
 
 def desactivar_autor_view(request,id):
     autor = Autor.objects.filter(id=id).first()
     autor.activo = False
     autor.save()
-    return HttpResponse(f'<h1> el Autor {autor.nombre} {autor.apellido} ha sido desactivado correctamente </h1>')
+    return redirect('autores')
 
 def modificar_autor(request, id):
     autor = get_object_or_404(Autor, id = id)
@@ -118,7 +122,4 @@ def modificar_autor(request, id):
         else:
             print("Hubo un error al cargar los datos del form.")
 
-    return render(request, 'crear_editar_autor.html', {
-        'form' : form,
-        'submit_value' : "Actualizar Autor"
-    })
+    return render(request, 'crear-editar-autor.html', {'form' : form, 'submit' : "Actualizar Autor"})

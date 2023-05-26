@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block 'contenido' %}
+
+<!-- ENCABEZADO -->
+<h1>Listado de Autores</h1>
+
+<div class="d-flex justify-content-end">
+  <a class="btn btn-primary" href="{% url 'crear-autor' %}">Nuevo autor</a>
+
+</div>
+<!-- Fin encabezado -->
+
 <table class="table text-center">
   <thead>
     <tr>
@@ -22,12 +32,32 @@
       <td>
         <i class="fa-solid fa-circle-check" style="color: #80ff00;"></i>
       </td>
+
+      <td>
+        <a class="btn border" href="{% url 'desactivar-autor' a.id %}">
+          <i class="fa-solid fa-person-circle-xmark" style="color: #bd0a0a; width: 1em;"></i>
+        </a>
+      </td>
+
       {% else %}
       <td>
         <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
       </td>
+
+      <td>
+        <a class="btn border" href="{% url 'activar-autor' a.id %}">
+          <i class="fa-solid fa-person-circle-check" style="color: #19ad05; width: 1em;"></i>
+        </a>
+      </td>
       {% endif %}
-    {% endfor %}
+
+      <!-- modificar -->
+      <td>
+        <a class="btn border" href="{% url 'modificar-autor' a.id %}">
+          <i class="fa-solid fa-user-pen" style="color: #000000;"></i>
+        </a>
+      </td>
+      {% endfor %}
   </tbody>
 </table>
 

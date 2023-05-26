@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm
-from .models import Empleado, Autor
+from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, SocioForm, SocioActualizarForm
+from .models import Empleado, Autor, Socio
 
 # Create your views here.
 def empleados(request):
@@ -35,6 +35,7 @@ def crear_empleado(request):
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
 
 
+
 def modificar_empleado(request, id):
     
     empleadoEditar = get_object_or_404(Empleado, id = id)
@@ -63,7 +64,7 @@ def modificar_empleado(request, id):
         else:
             print("algo salio mal")
 
-    return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
+    return render(request, 'crear-actualizar-empleado.html', {'orm': form, 'submit': 'Actualizar empleado'})
 
 def autores(request):
     autores = Autor.objects.all()
@@ -123,3 +124,56 @@ def modificar_autor(request, id):
         'form' : form,
         'submit_value' : "Actualizar Autor"
     })
+
+def socios(request):
+    socios = Socio.objects.all()
+    return render(request, 'listado_socios.html', {'socios': socios})
+
+def crear_Socio(request):
+    form = SocioForm()
+    if request.method == 'POST':
+        form = SocioForm(request.POST)
+        form.save()
+        form = SocioForm()
+    else:
+        print ("Error")
+
+    return render(request, 'crear_actualizar_socio.html', {'form': form, 'submit': 'Crear Socio'})
+
+def modificar_socio(request, id):
+
+    socioEditar = get_object_or_404(Socio, id = id)
+
+    form = SocioActualizarForm(initial = {
+        'nombre': socioEditar.nombre,
+        'apellido': socioEditar.apellido,
+        'fecha_nacimiento': socioEditar.fecha_nacimiento
+    })
+
+    if request.method == 'POST':
+
+        form = SocioForm(request.POST)
+
+        if form.is_valid():
+            socioEditar.nombre = form.cleaned_data['nombre']
+            socioEditar.apellido = form.cleaned_data['apellido']
+            socioEditar.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
+
+            socioEditar.save()
+        else:
+            print ('Error algo salio mal')
+    return render(request, 'crear_actualizar_socio.html', {'form': form, 'submit': 'Actualizar Socio'})
+
+def activar_socio(request,id):
+    socio = Socio.objects.filter(id=id).first()
+    socio.activo = True
+    socio.save()
+    return HttpResponse(f'<h1> El socio {socio.nombre} {socio.apellido} ha sido activado correctamente </h1>')
+
+def desactivar_socio(request,id):
+    socio = Socio.objects.filter(id=id).first()
+    socio.activo = False
+    socio.save()
+    return HttpResponse(f'<h1> El socio {socio.nombre} {socio.apellido} ha sido desactivado correctamente </h1>')
+
+

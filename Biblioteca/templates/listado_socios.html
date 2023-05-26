@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block 'contenido' %}
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Fecha de Nacimiento</th>
+      <th scope="col">Activo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in socios %}
+    <tr>
+      <th scope="row">{{ a.id }}</th>
+      <td>{{ s.nombre }}</td>
+      <td>{{ s.apellido }}</td>
+      <td>{{ s.fecha_nacimiento }}</td>
+      {% if s.activo %}
+      <td>
+        <i class="fa-solid fa-circle-check" style="color: #80ff00;"></i>
+      </td>
+      {% else %}
+      <td>
+        <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+      </td>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

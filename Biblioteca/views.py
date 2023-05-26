@@ -129,7 +129,7 @@ def socios(request):
     socios = Socio.objects.all()
     return render(request, 'listado_socios.html', {'socios': socios})
 
-def crear_Socio(request):
+def crear_socio(request):
     form = SocioForm()
     if request.method == 'POST':
         form = SocioForm(request.POST)

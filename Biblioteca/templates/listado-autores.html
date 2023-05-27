@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
 {% block 'contenido' %}
+
 <!-- ENCABEZADO -->
-<h1>Listado de empleados</h1>
+<h1>Listado de Autores</h1>
 
 <div class="d-flex justify-content-end">
-  <a class="btn btn-primary" href="{% url 'crear-empleado' %}">Nuevo empleado</a>
+  <a class="btn btn-primary" href="{% url 'crear-autor' %}">Nuevo autor</a>
 
 </div>
 <!-- Fin encabezado -->
@@ -16,25 +17,24 @@
       <th scope="col">Id</th>
       <th scope="col">Nombre</th>
       <th scope="col">Apellido</th>
-      <th scope="col">numero de legajo</th>
+      <th scope="col">Nacionalidad</th>
       <th scope="col">Activo</th>
     </tr>
   </thead>
   <tbody>
-    {% for e in empleados %}
+    {% for a in autores %}
     <tr>
-      <th scope="row">{{ e.id }}</th>
-      <td>{{ e.nombre }}</td>
-      <td>{{ e.apellido }}</td>
-      <td>{{ e.numero_legajo }}</td>
-
-      {% if e.activo %}
+      <th scope="row">{{ a.id }}</th>
+      <td>{{ a.nombre }}</td>
+      <td>{{ a.apellido }}</td>
+      <td>{{ a.nacionalidad }}</td>
+      {% if a.activo %}
       <td>
         <i class="fa-solid fa-circle-check" style="color: #80ff00;"></i>
       </td>
-      <!-- desactivar -->
+
       <td>
-        <a class="btn border" href="{% url 'desactivar-empleado' e.id %}">
+        <a class="btn border" href="{% url 'desactivar-autor' a.id %}">
           <i class="fa-solid fa-person-circle-xmark" style="color: #bd0a0a; width: 1em;"></i>
         </a>
       </td>
@@ -43,9 +43,9 @@
       <td>
         <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
       </td>
-      <!-- activar -->
+
       <td>
-        <a class="btn border" href="{% url 'activar-empleado' e.id %}">
+        <a class="btn border" href="{% url 'activar-autor' a.id %}">
           <i class="fa-solid fa-person-circle-check" style="color: #19ad05; width: 1em;"></i>
         </a>
       </td>
@@ -53,11 +53,10 @@
 
       <!-- modificar -->
       <td>
-        <a class="btn border" href="{% url 'modificar-empleado' e.id %}">
+        <a class="btn border" href="{% url 'modificar-autor' a.id %}">
           <i class="fa-solid fa-user-pen" style="color: #000000;"></i>
         </a>
       </td>
-
       {% endfor %}
   </tbody>
 </table>

@@ -11,6 +11,8 @@
 </div>
 <!-- Fin encabezado -->
 
+{% if autores %}
+
 <table class="table text-center">
   <thead>
     <tr>
@@ -58,7 +60,13 @@
         </a>
       </td>
       {% endfor %}
+
+  
   </tbody>
 </table>
+
+{% else %}
+<h3>No hay autores</h3>
+{% endif %}
 
 {% endblock %}

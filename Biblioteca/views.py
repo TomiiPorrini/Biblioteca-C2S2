@@ -44,7 +44,7 @@ def modificar_empleado(request, id):
         'nombre':empleadoEditar.nombre ,
         'apellido':empleadoEditar.apellido ,
         'numero_legajo':empleadoEditar.numero_legajo,
-        'activo':empleadoEditar.activo })
+        })
     
     if request.method == 'POST':
         
@@ -58,7 +58,6 @@ def modificar_empleado(request, id):
             empleadoEditar.nombre = form.cleaned_data['nombre']
             empleadoEditar.apellido = form.cleaned_data['apellido']
             empleadoEditar.numero_legajo = form.cleaned_data['numero_legajo']
-            empleadoEditar.activo = form.cleaned_data['activo']
             
             empleadoEditar.save()
         else:
@@ -101,7 +100,6 @@ def modificar_autor(request, id):
         'nombre':autor.nombre ,
         'apellido':autor.apellido ,
         'nacionalidad':autor.nacionalidad,
-        # 'activo':autor.activo 
         })
 
     
@@ -114,7 +112,6 @@ def modificar_autor(request, id):
                 autor.nombre = form.cleaned_data['nombre']
                 autor.apellido = form.cleaned_data['apellido']
                 autor.nacionalidad = form.cleaned_data['nacionalidad']
-                # autor.activo = form.cleaned_data['activo']
                 autor.save()
                 print("Datos cargados con éxito.")
             else:

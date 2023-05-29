@@ -18,9 +18,8 @@ def crear_empleado(request):
         form = EmpleadoForm(request.POST)
         if form.is_valid():
             form.save()
-            print("Todo salio bien")
-        else:
-            print("algo salio mal")
+            return redirect('empleados')
+
     
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
 
@@ -70,7 +69,6 @@ def eliminar_empleado(request, id):
     empleado.delete()
     return redirect('empleados')
 
-
 # Autor
 
 def autores(request):
@@ -84,6 +82,7 @@ def crear_autor(request):
         form = AutorForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('autores')
     
     return render(request, 'crear-editar-autor.html', {'form': form, 'submit': 'Crear Autor'})
 
@@ -130,5 +129,5 @@ def modificar_autor(request, id):
 def eliminar_autor(request, id):
     autor = Autor.objects.get(id=id)
     autor.delete()
-    return redirect('empleados')
+    return redirect('autores')
 

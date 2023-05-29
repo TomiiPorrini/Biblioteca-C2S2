@@ -59,6 +59,13 @@
           <i class="fa-solid fa-user-pen" style="color: #000000;"></i>
         </a>
       </td>
+
+      <!-- eliminar -->
+      <td>
+        <a class="btn border" href="{% url 'eliminar-autor' a.id %}">
+          <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
+        </a>
+      </td>
       {% endfor %}
 
   

@@ -65,6 +65,12 @@ def modificar_empleado(request, id):
 
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
 
+def eliminar_empleado(request, id):
+    empleado = Empleado.objects.get(id=id)
+    empleado.delete()
+    return redirect('empleados')
+
+
 # Autor
 
 def autores(request):
@@ -120,3 +126,9 @@ def modificar_autor(request, id):
             print("Hubo un error al cargar los datos del form.")
 
     return render(request, 'crear-editar-autor.html', {'form' : form, 'submit' : "Actualizar Autor"})
+
+def eliminar_autor(request, id):
+    autor = Autor.objects.get(id=id)
+    autor.delete()
+    return redirect('empleados')
+

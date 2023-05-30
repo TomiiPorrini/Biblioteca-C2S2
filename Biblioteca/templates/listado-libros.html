@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block 'contenido' %}
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Titulo</th>
+      <th scope="col">Descripcion</th>
+      <th scope="col">Isbn</th>
+      <th scope="col">Autor</th>
+      <th scope="col">Activo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for l in libros %}
+    <tr>
+      <th scope="row">{{ l.id }}</th>
+      <td>{{ l.titulo }}</td>
+      <td>{{ l.descripcion }}</td>
+      <td>{{ l.isbn }}</td>
+      <td>{{ l.autor }}</td>
+      <td>{{ l.isbn }}</td>
+      {% if s.activo %}
+      <td>
+        <i class="fa-solid fa-circle-check" style="color: #80ff00;"></i>
+      </td>
+      {% else %}
+      <td>
+        <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+      </td>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

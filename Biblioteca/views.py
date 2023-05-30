@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm
-from .models import Empleado, Autor
+from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, LibroForm, LibroActualizarForm
+from .models import Empleado, Autor, Libro
 
 # Create your views here.
 
@@ -131,3 +131,59 @@ def eliminar_autor(request, id):
     autor.delete()
     return redirect('autores')
 
+
+
+def libros(request):
+    libros = Libro.objects.all()
+    return render(request, 'listado_libros.html', {'libros': libros})
+
+
+def crear_libro(request):
+    form = LibroForm()
+    if request.method == 'POST':
+        form = LibroForm(request.POST)
+        form.save()
+        form = LibroForm()
+    else:
+        print ("Error")
+
+    return render(request, 'crear_actualizar_libro.html', {'form': form, 'submit': 'Crear Libro'})
+
+def modificar_libro(request, id):
+
+    libroEditar = get_object_or_404(Libro, id = id)
+
+    form = LibroActualizarForm(initial = {
+        'titulo': libroEditar.titulo,
+        'descripcion': libroEditar.descripcion,
+        'isbn':libroEditar.isbn,
+        'autor':libroEditar.autor,
+        #activo:libroEditar.activo,
+    })
+
+    if request.method == 'POST':
+
+        form = LibroForm(request.POST)
+
+        if form.is_valid():
+            libroEditar.titulo = form.cleaned_data['titulo']
+            libroEditar.descripcion = form.cleaned_data['descripcion']
+            libroEditar.isbn = form.cleaned_data['isbn']
+            libroEditar.autor = form.cleaned.data['autor']
+
+            libroEditar.save()
+        else:
+            print ('Error algo salio mal')
+    return render(request, 'crear_actualizar_libro.html', {'form': form, 'submit': 'Actualizar Libro'})
+
+def activar_libro(request,id):
+    libro = Libro.objects.filter(id=id).first()
+    libro.activo = True
+    libro.save()
+    return HttpResponse(f'<h1> El socio {libro.titulo} {libro.isbn} ha sido activado correctamente </h1>')
+
+def desactivar_libro(request,id):
+    libro = Libro.objects.filter(id=id).first()
+    libro.activo = False
+    libro.save()
+    return HttpResponse(f'<h1> El socio {libro.titulo} {libro.isbn} ha sido desactivado correctamente </h1>')

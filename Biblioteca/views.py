@@ -4,22 +4,12 @@ from .forms import EmpleadoForm, EmpleadoActualizarForm, SocioForm, SocioActuali
 from .models import Empleado, Autor, Socio
 
 # Create your views here.
+
+# Empleado
 def empleados(request):
     empleados = Empleado.objects.all()
 
     return render(request, 'listado-empleados.html', {'empleados': empleados})
-
-def activar_empleado_view(request, id):
-    empleado = Empleado.objects.filter(id=id).first()
-    empleado.activo=True
-    empleado.save()
-    return HttpResponse(f'<h1>Empleado "{empleado.nombre} {empleado.apellido}" activado correctamente</h1>')
-
-def desactivar_empleado_view(request, id):
-    empleado = Empleado.objects.filter(id=id).first()
-    empleado.activo=False
-    empleado.save()
-    return HttpResponse(f'<h1>Empleado {empleado.nombre} {empleado.apellido} desactivado correctamente</h1>')
 
 def crear_empleado(request):
     form = EmpleadoForm()
@@ -28,12 +18,22 @@ def crear_empleado(request):
         form = EmpleadoForm(request.POST)
         if form.is_valid():
             form.save()
-            print("Todo salio bien")
-        else:
-            print("algo salio mal")
+            return redirect('empleados')
+
     
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
 
+def activar_empleado_view(request, id):
+    empleado = Empleado.objects.filter(id=id).first()
+    empleado.activo=True
+    empleado.save()
+    return redirect('empleados')
+
+def desactivar_empleado_view(request, id):
+    empleado = Empleado.objects.filter(id=id).first()
+    empleado.activo=False
+    empleado.save()
+    return redirect('empleados')
 
 def modificar_empleado(request, id):
     
@@ -43,7 +43,7 @@ def modificar_empleado(request, id):
         'nombre':empleadoEditar.nombre ,
         'apellido':empleadoEditar.apellido ,
         'numero_legajo':empleadoEditar.numero_legajo,
-        'activo':empleadoEditar.activo })
+        })
     
     if request.method == 'POST':
         
@@ -57,13 +57,19 @@ def modificar_empleado(request, id):
             empleadoEditar.nombre = form.cleaned_data['nombre']
             empleadoEditar.apellido = form.cleaned_data['apellido']
             empleadoEditar.numero_legajo = form.cleaned_data['numero_legajo']
-            empleadoEditar.activo = form.cleaned_data['activo']
             
             empleadoEditar.save()
         else:
             print("algo salio mal")
 
     return render(request, 'crear-actualizar-empleado.html', {'orm': form, 'submit': 'Actualizar empleado'})
+
+def eliminar_empleado(request, id):
+    empleado = Empleado.objects.get(id=id)
+    empleado.delete()
+    return redirect('empleados')
+
+# Autor
 
 def autores(request):
     autores = Autor.objects.all()
@@ -76,20 +82,21 @@ def crear_autor(request):
         form = AutorForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('autores')
     
-    return render(request, 'crear_autor.html', {'form': form, 'submit': 'Crear Autor'})
+    return render(request, 'crear-editar-autor.html', {'form': form, 'submit': 'Crear Autor'})
 
 def activar_autor_view(request, id):
     autor = Autor.objects.filter(id=id).first()
     autor.activo = True
     autor.save()
-    return HttpResponse(f'<h1> el Autor {autor.nombre} {autor.apellido} ha sido activado correctamente </h1>')
+    return redirect('autores')
 
 def desactivar_autor_view(request,id):
     autor = Autor.objects.filter(id=id).first()
     autor.activo = False
     autor.save()
-    return HttpResponse(f'<h1> el Autor {autor.nombre} {autor.apellido} ha sido desactivado correctamente </h1>')
+    return redirect('autores')
 
 def modificar_autor(request, id):
     autor = get_object_or_404(Autor, id = id)
@@ -98,7 +105,6 @@ def modificar_autor(request, id):
         'nombre':autor.nombre ,
         'apellido':autor.apellido ,
         'nacionalidad':autor.nacionalidad,
-        # 'activo':autor.activo 
         })
 
     
@@ -111,19 +117,17 @@ def modificar_autor(request, id):
                 autor.nombre = form.cleaned_data['nombre']
                 autor.apellido = form.cleaned_data['apellido']
                 autor.nacionalidad = form.cleaned_data['nacionalidad']
-                # autor.activo = form.cleaned_data['activo']
                 autor.save()
-                print("Datos cargados con éxito.")
+                #print("Datos cargados con éxito.")
+                return redirect('autor')
             else:
-                print('No se modifico ningun dato.')
+                #print('No se modifico ningun dato.')
         else:
             print("Hubo un error al cargar los datos del form.")
 
     return render(request, 'crear_editar_autor.html', {
         'form' : form,
-        'submit_value' : "Actualizar Autor"
-    })
-
+        'submit_value' : "Actualizar Autor"})
 
 def socios(request):
     socios = Socio.objects.all()
@@ -181,4 +185,10 @@ def desactivar_socio(request,id):
     socio = Socio.objects.filter(id=id).first()
     socio.activo = False
     socio.save()
-    return redirect('socios')
+    return redirect('socios')  
+
+def eliminar_autor(request, id):
+    autor = Autor.objects.get(id=id)
+    autor.delete()
+    return redirect('autores')
+

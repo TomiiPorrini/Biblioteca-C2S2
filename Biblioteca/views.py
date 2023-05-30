@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, SocioForm, SocioActualizarForm
+from .forms import EmpleadoForm, EmpleadoActualizarForm, SocioForm, SocioActualizarForm
 from .models import Empleado, Autor, Socio
 
 # Create your views here.
@@ -33,7 +33,6 @@ def crear_empleado(request):
             print("algo salio mal")
     
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
-
 
 
 def modificar_empleado(request, id):
@@ -125,6 +124,7 @@ def modificar_autor(request, id):
         'submit_value' : "Actualizar Autor"
     })
 
+
 def socios(request):
     socios = Socio.objects.all()
     return render(request, 'listado_socios.html', {'socios': socios})
@@ -135,6 +135,7 @@ def crear_socio(request):
         form = SocioForm(request.POST)
         form.save()
         form = SocioForm()
+        return redirect('socios')
     else:
         print ("Error")
 
@@ -160,20 +161,24 @@ def modificar_socio(request, id):
             socioEditar.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
 
             socioEditar.save()
+            return redirect('socios')
         else:
             print ('Error algo salio mal')
     return render(request, 'crear_actualizar_socio.html', {'form': form, 'submit': 'Actualizar Socio'})
+
+def eliminar_socio(request, id):
+    socio = Socio.objects.filter(id = id).first()
+    socio.delete()
+    return redirect('socios')
 
 def activar_socio(request,id):
     socio = Socio.objects.filter(id=id).first()
     socio.activo = True
     socio.save()
-    return HttpResponse(f'<h1> El socio {socio.nombre} {socio.apellido} ha sido activado correctamente </h1>')
+    return redirect('socios')
 
 def desactivar_socio(request,id):
     socio = Socio.objects.filter(id=id).first()
     socio.activo = False
     socio.save()
-    return HttpResponse(f'<h1> El socio {socio.nombre} {socio.apellido} ha sido desactivado correctamente </h1>')
-
-
+    return redirect('socios')

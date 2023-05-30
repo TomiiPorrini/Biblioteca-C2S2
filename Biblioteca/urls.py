@@ -15,10 +15,11 @@ urlpatterns = [
     path('autores/modificar/<int:id>', views.modificar_autor, name='modificar-autor'),
     path('autores/listado', views.autores),
 
-    path('socios/nuevo', views.crear_socio),
-    path('socios/activar/<int:id>', views.activar_socio),
-    path('socios/desactivar/<int:id>', views.desactivar_socio),
-    path('socios/modificar/<int:id>', views.modificar_socio),
-    path('socios/listado', views.socios),
+    path('socios/nuevo', views.crear_socio, name='crear-socio'),
+    path('socios/activar/<int:id>', views.activar_socio, name='activar-socio'),
+    path('socios/desactivar/<int:id>', views.desactivar_socio, name='desactivar-socio'),
+    path('socios/modificar/<int:id>', views.modificar_socio, name='modificar-socio'),
+    path('socios/eliminar/<int:id>', views.eliminar_socio, name='eliminar-socio'),
+    path('socios/listado', views.socios, name='socios'),
     
 ]

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, LibroForm, LibroActualizarForm
-from .models import Empleado, Autor, Libro
+from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, LibroForm, LibroActualizarForm, SocioForm, SocioActualizarForm
+from .models import Empleado, Autor, Libro, Socio
 
 # Create your views here.
 
@@ -62,7 +62,7 @@ def modificar_empleado(request, id):
         else:
             print("algo salio mal")
 
-    return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
+    return render(request, 'crear-actualizar-empleado.html', {'orm': form, 'submit': 'Actualizar empleado'})
 
 def eliminar_empleado(request, id):
     empleado = Empleado.objects.get(id=id)
@@ -118,13 +118,74 @@ def modificar_autor(request, id):
                 autor.apellido = form.cleaned_data['apellido']
                 autor.nacionalidad = form.cleaned_data['nacionalidad']
                 autor.save()
-                print("Datos cargados con éxito.")
+                #print("Datos cargados con éxito.")
+                return redirect('autor')
             else:
-                print('No se modifico ningun dato.')
+                #print('No se modifico ningun dato.')
         else:
             print("Hubo un error al cargar los datos del form.")
 
-    return render(request, 'crear-editar-autor.html', {'form' : form, 'submit' : "Actualizar Autor"})
+    return render(request, 'crear_editar_autor.html', {
+        'form' : form,
+        'submit_value' : "Actualizar Autor"})
+
+def socios(request):
+    socios = Socio.objects.all()
+    return render(request, 'listado_socios.html', {'socios': socios})
+
+def crear_socio(request):
+    form = SocioForm()
+    if request.method == 'POST':
+        form = SocioForm(request.POST)
+        form.save()
+        form = SocioForm()
+        return redirect('socios')
+    else:
+        print ("Error")
+
+    return render(request, 'crear_actualizar_socio.html', {'form': form, 'submit': 'Crear Socio'})
+
+def modificar_socio(request, id):
+
+    socioEditar = get_object_or_404(Socio, id = id)
+
+    form = SocioActualizarForm(initial = {
+        'nombre': socioEditar.nombre,
+        'apellido': socioEditar.apellido,
+        'fecha_nacimiento': socioEditar.fecha_nacimiento
+    })
+
+    if request.method == 'POST':
+
+        form = SocioForm(request.POST)
+
+        if form.is_valid():
+            socioEditar.nombre = form.cleaned_data['nombre']
+            socioEditar.apellido = form.cleaned_data['apellido']
+            socioEditar.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
+
+            socioEditar.save()
+            return redirect('socios')
+        else:
+            print ('Error algo salio mal')
+    return render(request, 'crear_actualizar_socio.html', {'form': form, 'submit': 'Actualizar Socio'})
+
+def eliminar_socio(request, id):
+    socio = Socio.objects.filter(id = id).first()
+    socio.delete()
+    return redirect('socios')
+
+def activar_socio(request,id):
+    socio = Socio.objects.filter(id=id).first()
+    socio.activo = True
+    socio.save()
+    return redirect('socios')
+
+def desactivar_socio(request,id):
+    socio = Socio.objects.filter(id=id).first()
+    socio.activo = False
+    socio.save()
+    return redirect('socios')  
 
 def eliminar_autor(request, id):
     autor = Autor.objects.get(id=id)

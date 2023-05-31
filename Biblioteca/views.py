@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EmpleadoForm, EmpleadoActualizarForm, SocioForm, SocioActualizarForm
-from .models import Empleado, Autor, Socio
+from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, LibroForm, LibroActualizarForm, SocioForm, SocioActualizarForm
+from .models import Empleado, Autor, Libro, Socio
 
 # Create your views here.
 
@@ -192,3 +192,65 @@ def eliminar_autor(request, id):
     autor.delete()
     return redirect('autores')
 
+
+
+def libros(request):
+    libros = Libro.objects.all()
+    return render(request, 'listado-libros.html', {'libros': libros})
+
+def crear_libro(request):
+    form = LibroForm()
+    if request.method == 'POST':
+        form = LibroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('libros')
+
+    else:
+        print ("Error")
+
+    return render(request, 'crear-actualizar-libro.html', {'form': form, 'submit': 'Crear Libro'})
+
+def modificar_libro(request, id):
+
+    libroEditar = get_object_or_404(Libro, id = id)
+
+    form = LibroActualizarForm(initial = {
+        'titulo': libroEditar.titulo,
+        'descripcion': libroEditar.descripcion,
+        'isbn':libroEditar.isbn,
+        'autor':libroEditar.autor,
+    })
+
+    if request.method == 'POST':
+
+        form = LibroForm(request.POST)
+
+        if form.is_valid():
+            libroEditar.titulo = form.cleaned_data['titulo']
+            libroEditar.descripcion = form.cleaned_data['descripcion']
+            libroEditar.isbn = form.cleaned_data['isbn']
+            libroEditar.autor = form.cleaned_data['autor']
+
+            libroEditar.save()
+            return redirect('libros')
+        else:
+            print ('Error algo salio mal')
+    return render(request, 'crear-actualizar-libro.html', {'form': form, 'submit': 'Actualizar Libro'})
+
+def activar_libro(request,id):
+    libro = Libro.objects.filter(id=id).first()
+    libro.activo = True
+    libro.save()
+    return redirect('libros')
+
+def desactivar_libro(request,id):
+    libro = Libro.objects.filter(id=id).first()
+    libro.activo = False
+    libro.save()
+    return redirect('libros')
+
+def eliminar_libro(request, id):
+    libros = Libro.objects.get(id=id)
+    libros.delete()
+    return redirect('libros')

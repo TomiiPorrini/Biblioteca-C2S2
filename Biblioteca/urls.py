@@ -17,10 +17,18 @@ urlpatterns = [
     path('autores/eliminar/<int:id>', views.eliminar_autor, name='eliminar-autor'),
     path('autores/listado', views.autores, name='autores'),
 
+    path('libros/nuevo', views.crear_libro, name='crear-libro'),
+    path('libros/activar/<int:id>', views.activar_libro, name='activar-libro'),
+    path('libros/desactivar/<int:id>', views.desactivar_libro, name='desactivar-libro'),
+    path('libros/modificar/<int:id>', views.modificar_libro, name='modificar-libro'),
+    path('libros/eliminar/<int:id>', views.eliminar_libro, name='eliminar-libro'),
+    path('libros/listado', views.libros, name='libros')
+
     path('socios/nuevo', views.crear_socio, name='crear-socio'),
     path('socios/activar/<int:id>', views.activar_socio, name='activar-socio'),
     path('socios/desactivar/<int:id>', views.desactivar_socio, name='desactivar-socio'),
     path('socios/modificar/<int:id>', views.modificar_socio, name='modificar-socio'),
     path('socios/eliminar/<int:id>', views.eliminar_socio, name='eliminar-socio'),
     path('socios/listado', views.socios, name='socios'),
+
 ]

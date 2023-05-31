@@ -14,11 +14,13 @@ class Libro(models.Model):
     autor = models.ForeignKey(Autor, on_delete=models.SET_NULL, null=True)
     activo = models.BooleanField(default=True)
 
+#26_05_2023
+#Cambio en el capo activo, agregado True por default
 class Socio(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     fecha_nacimiento = models.DateField()
-    activo = models.BooleanField()
+    activo = models.BooleanField(default = True)
 
 class Empleado(models.Model):
     nombre = models.CharField(max_length=50)
@@ -32,3 +34,4 @@ class PrestamoLibro(models.Model):
     socio = models.ForeignKey(Socio, on_delete=models.SET_NULL, null=True)
     empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL, null=True)
     libro = models.ForeignKey(Libro, on_delete=models.SET_NULL, null=True)
+

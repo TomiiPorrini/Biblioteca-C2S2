@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Empleado, Autor
+from .models import Empleado, Socio
 
 class EmpleadoForm(ModelForm):
     class Meta:
@@ -11,14 +11,16 @@ class EmpleadoActualizarForm(ModelForm):
         model = Empleado
         fields = ['nombre','apellido','numero_legajo', 'activo']
 
-class AutorForm(ModelForm):
-    class Meta:
-        model = Autor
-        fields = ['nombre', 'apellido', 'nacionalidad', 'activo']
 
-class AutorActualizarForm(ModelForm):
+#Formulario para crear nuevos socios
+# el campo activo de Socio por defecto es True
+class SocioForm(ModelForm):
     class Meta:
-        model = Autor
+        model = Socio
+        fields = ['nombre', 'apellido', 'fecha_nacimiento']
+
+class SocioActualizarForm(ModelForm):
+    class Meta:
+        model = Socio
         fields = '__all__'
         exclude = ['activo']
-

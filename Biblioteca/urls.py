@@ -21,8 +21,8 @@ urlpatterns = [
     path('libros/nuevo', views.crear_libro, name='crear-libro'),
     path('libros/activar/<int:id>', views.activar_libro, name='activar-libro'),
     path('libros/desactivar/<int:id>', views.desactivar_libro, name='desactivar-libro'),
-    path('libros/modificar', views.modificar_libro, name='modificar-libro'),
+    path('libros/modificar/<int:id>', views.modificar_libro, name='modificar-libro'),
     path('libros/eliminar/<int:id>', views.eliminar_libro, name='eliminar-libro'),
-    path('libros/listado', views.libros, name='listado-libros')
+    path('libros/listado', views.libros, name='libros')
 
 ]

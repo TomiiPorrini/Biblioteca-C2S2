@@ -135,19 +135,20 @@ def eliminar_autor(request, id):
 
 def libros(request):
     libros = Libro.objects.all()
-    return render(request, 'listado_libros.html', {'libros': libros})
-
+    return render(request, 'listado-libros.html', {'libros': libros})
 
 def crear_libro(request):
     form = LibroForm()
     if request.method == 'POST':
         form = LibroForm(request.POST)
-        form.save()
-        form = LibroForm()
+        if form.is_valid():
+            form.save()
+            return redirect('libros')
+
     else:
         print ("Error")
 
-    return render(request, 'crear_actualizar_libro.html', {'form': form, 'submit': 'Crear Libro'})
+    return render(request, 'crear-actualizar-libro.html', {'form': form, 'submit': 'Crear Libro'})
 
 def modificar_libro(request, id):
 
@@ -158,7 +159,6 @@ def modificar_libro(request, id):
         'descripcion': libroEditar.descripcion,
         'isbn':libroEditar.isbn,
         'autor':libroEditar.autor,
-        #activo:libroEditar.activo,
     })
 
     if request.method == 'POST':
@@ -169,21 +169,27 @@ def modificar_libro(request, id):
             libroEditar.titulo = form.cleaned_data['titulo']
             libroEditar.descripcion = form.cleaned_data['descripcion']
             libroEditar.isbn = form.cleaned_data['isbn']
-            libroEditar.autor = form.cleaned.data['autor']
+            libroEditar.autor = form.cleaned_data['autor']
 
             libroEditar.save()
+            return redirect('libros')
         else:
             print ('Error algo salio mal')
-    return render(request, 'crear_actualizar_libro.html', {'form': form, 'submit': 'Actualizar Libro'})
+    return render(request, 'crear-actualizar-libro.html', {'form': form, 'submit': 'Actualizar Libro'})
 
 def activar_libro(request,id):
     libro = Libro.objects.filter(id=id).first()
     libro.activo = True
     libro.save()
-    return HttpResponse(f'<h1> El socio {libro.titulo} {libro.isbn} ha sido activado correctamente </h1>')
+    return redirect('libros')
 
 def desactivar_libro(request,id):
     libro = Libro.objects.filter(id=id).first()
     libro.activo = False
     libro.save()
-    return HttpResponse(f'<h1> El socio {libro.titulo} {libro.isbn} ha sido desactivado correctamente </h1>')
+    return redirect('libros')
+
+def eliminar_libro(request, id):
+    libros = Libro.objects.get(id=id)
+    libros.delete()
+    return redirect('libros')

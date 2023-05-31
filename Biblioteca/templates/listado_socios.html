@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block 'contenido' %}
+
+{% if socios %}
+  <table class="table text-center">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Fecha de Nacimiento</th>
+        <th scope="col">Activo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in socios %}
+      <tr>
+        <th scope="row">{{ s.id }}</th>
+        <td>{{ s.nombre }}</td>
+        <td>{{ s.apellido }}</td>
+        <td>{{ s.fecha_nacimiento }}</td>
+        {% if s.activo %}
+        <td>
+          <i class="fa-solid fa-circle-check" style="color: #80ff00;"></i>
+        </td>
+
+        <td>
+          <a class="btn border" href="{% url 'desactivar-socio' s.id %}">
+            <i class="fa-solid fa-person-circle-xmark" style="color: #bd0a0a; width: 1em;"></i>
+          </a>
+        </td>
+
+        {% else %}
+
+        <td>
+          <i class="fa-regular fa-circle-xmark" style="color: #ff0000;"></i>
+        </td>
+
+        <td>
+          <a class="btn border" href="{% url 'activar-socio' s.id %}">
+            <i class="fa-solid fa-person-circle-check" style="color: #19ad05; width: 1em;"></i>
+          </a>
+        </td>
+
+        {% endif %}
+
+
+         <!-- modificar -->
+      <td>
+        <a class="btn border" href="{% url 'modificar-socio' s.id %}">
+          <i class="fa-solid fa-user-pen" style="color: #000000;"></i>
+        </a>
+      </td>
+
+      <!-- eliminar -->
+      <td>
+        <a class="btn border" href="{% url 'eliminar-socio' s.id %}">
+          <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
+        </a>
+      </td>
+
+        
+      {% endfor %}
+    </tbody>
+  </table>
+    {% else %}
+      <h3>No hay Socios</h3>
+    {% endif %}
+{% endblock %}

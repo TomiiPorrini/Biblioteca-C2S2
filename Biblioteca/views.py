@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, LibroForm, LibroActualizarForm, SocioForm, SocioActualizarForm
-from .models import Empleado, Autor, Libro, Socio
-
+from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, LibroForm, LibroActualizarForm, SocioForm, SocioActualizarForm, PrestamoForm, PrestamoActualizarForm
+from .models import Empleado, Autor, Libro, Socio, PrestamoLibro
+from datetime import date
 # Create your views here.
 
 # EMPLEADOS
@@ -257,3 +257,60 @@ def eliminar_libro(request, id):
     libros = Libro.objects.get(id=id)
     libros.delete()
     return redirect('libros')
+
+# PRESTAMOS LIBROS
+
+def prestamos(request):
+    prestamos = PrestamoLibro.objects.all()
+
+    return render(request, 'listado-prestamos.html', {'prestamos': prestamos})
+
+def crear_prestamo(request):
+    form = PrestamoForm()
+    
+    if request.method == 'POST':
+        form = PrestamoForm(request.POST)
+        if form.is_valid() and form.cleaned_data['socio'].activo and form.cleaned_data['empleado'].activo and form.cleaned_data['libro'].activo:
+            form.save()
+
+            return redirect('prestamos')
+        else:
+            print('no se pudo')
+
+    
+    return render(request, 'crear-actualizar-prestamo.html', {'form': form, 'submit': 'Crear prestamo'})
+
+
+def modificar_prestamo(request, id):
+    
+    prestamoEditar = get_object_or_404(PrestamoLibro, id = id)
+
+    form = PrestamoActualizarForm(initial={
+        
+        'socio':prestamoEditar.socio,
+        'empleado':prestamoEditar.empleado,
+        'libro':prestamoEditar.libro
+        })
+    
+    if request.method == 'POST':
+        
+        form = PrestamoForm(request.POST)
+        
+        if form.is_valid() and form.cleaned_data['socio'].activo and form.cleaned_data['empleado'].activo and form.cleaned_data['libro'].activo:
+            
+            print("Todo salio bien")
+            prestamoEditar.socio = form.cleaned_data['socio']
+            prestamoEditar.empleado = form.cleaned_data['empleado']
+            prestamoEditar.libro = form.cleaned_data['libro']
+            
+            prestamoEditar.save()
+            return redirect('prestamos')
+        else:
+            print("algo salio mal")
+
+    return render(request, 'crear-actualizar-prestamo.html', {'form': form, 'submit': 'Actualizar Prestamo'})
+
+def eliminar_prestamo(request, id):
+    prestamo = PrestamoLibro.objects.get(id=id)
+    prestamo.delete()
+    return redirect('prestamos')

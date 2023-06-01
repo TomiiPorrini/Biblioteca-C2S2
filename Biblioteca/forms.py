@@ -12,6 +12,16 @@ class EmpleadoActualizarForm(ModelForm):
         model = Empleado
         fields = ['nombre','apellido','numero_legajo', 'activo']
 
+class AutorForm(ModelForm):
+    class Meta:
+        model = Autor
+        fields = ['nombre', 'apellido', 'nacionalidad', 'activo']
+
+class AutorActualizarForm(ModelForm):
+    class Meta:
+        model = Autor
+        fields = '__all__'
+        exclude = ['activo']
 
 #Formulario para crear nuevos socios
 # el campo activo de Socio por defecto es True

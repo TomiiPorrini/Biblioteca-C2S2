@@ -5,7 +5,8 @@ from .models import Empleado, Autor, Libro, Socio
 
 # Create your views here.
 
-# Empleado
+# EMPLEADOS
+
 def empleados(request):
     empleados = Empleado.objects.all()
 
@@ -23,13 +24,13 @@ def crear_empleado(request):
     
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
 
-def activar_empleado_view(request, id):
+def activar_empleado(request, id):
     empleado = Empleado.objects.filter(id=id).first()
     empleado.activo=True
     empleado.save()
     return redirect('empleados')
 
-def desactivar_empleado_view(request, id):
+def desactivar_empleado(request, id):
     empleado = Empleado.objects.filter(id=id).first()
     empleado.activo=False
     empleado.save()
@@ -59,17 +60,18 @@ def modificar_empleado(request, id):
             empleadoEditar.numero_legajo = form.cleaned_data['numero_legajo']
             
             empleadoEditar.save()
+            return redirect('empleados')
         else:
             print("algo salio mal")
 
-    return render(request, 'crear-actualizar-empleado.html', {'orm': form, 'submit': 'Actualizar empleado'})
+    return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
 
 def eliminar_empleado(request, id):
     empleado = Empleado.objects.get(id=id)
     empleado.delete()
     return redirect('empleados')
 
-# Autor
+# AUTORES
 
 def autores(request):
     autores = Autor.objects.all()
@@ -86,13 +88,13 @@ def crear_autor(request):
     
     return render(request, 'crear-editar-autor.html', {'form': form, 'submit': 'Crear Autor'})
 
-def activar_autor_view(request, id):
+def activar_autor(request, id):
     autor = Autor.objects.filter(id=id).first()
     autor.activo = True
     autor.save()
     return redirect('autores')
 
-def desactivar_autor_view(request,id):
+def desactivar_autor(request,id):
     autor = Autor.objects.filter(id=id).first()
     autor.activo = False
     autor.save()
@@ -119,19 +121,24 @@ def modificar_autor(request, id):
                 autor.nacionalidad = form.cleaned_data['nacionalidad']
                 autor.save()
                 #print("Datos cargados con éxito.")
-                return redirect('autor')
-            else:
-                #print('No se modifico ningun dato.')
+                return redirect('autores')
         else:
-            print("Hubo un error al cargar los datos del form.")
+                print("Hubo un error al cargar los datos del form.")
 
-    return render(request, 'crear_editar_autor.html', {
+    return render(request, 'crear-editar-autor.html', {
         'form' : form,
-        'submit_value' : "Actualizar Autor"})
+        'submit' : "Actualizar Autor"})
+
+def eliminar_autor(request, id):
+    autor = Autor.objects.get(id=id)
+    autor.delete()
+    return redirect('autores')
+
+# SOCIOS
 
 def socios(request):
     socios = Socio.objects.all()
-    return render(request, 'listado_socios.html', {'socios': socios})
+    return render(request, 'listado-socios.html', {'socios': socios})
 
 def crear_socio(request):
     form = SocioForm()
@@ -143,7 +150,7 @@ def crear_socio(request):
     else:
         print ("Error")
 
-    return render(request, 'crear_actualizar_socio.html', {'form': form, 'submit': 'Crear Socio'})
+    return render(request, 'crear-actualizar-socio.html', {'form': form, 'submit': 'Crear Socio'})
 
 def modificar_socio(request, id):
 
@@ -168,7 +175,7 @@ def modificar_socio(request, id):
             return redirect('socios')
         else:
             print ('Error algo salio mal')
-    return render(request, 'crear_actualizar_socio.html', {'form': form, 'submit': 'Actualizar Socio'})
+    return render(request, 'crear-actualizar-socio.html', {'form': form, 'submit': 'Actualizar Socio'})
 
 def eliminar_socio(request, id):
     socio = Socio.objects.filter(id = id).first()
@@ -187,12 +194,8 @@ def desactivar_socio(request,id):
     socio.save()
     return redirect('socios')  
 
-def eliminar_autor(request, id):
-    autor = Autor.objects.get(id=id)
-    autor.delete()
-    return redirect('autores')
 
-
+# LIBROS
 
 def libros(request):
     libros = Libro.objects.all()

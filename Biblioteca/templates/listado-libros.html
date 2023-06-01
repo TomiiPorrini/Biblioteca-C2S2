@@ -31,8 +31,7 @@
         <td>{{ l.titulo }}</td>
         <td>{{ l.descripcion }}</td>
         <td>{{ l.isbn }}</td>
-        <td>{{ l.autor }}</td>
-        <td>{{ l.isbn }}</td>
+        <td>{{ l.autor.apellido }}, {{ l.autor.nombre }}</td>
 
         {% if l.activo %}
           <td>

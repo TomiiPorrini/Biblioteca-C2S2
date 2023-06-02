@@ -5,7 +5,10 @@
 <!-- ENCABEZADO -->
 <h1>Listado de Prestamos</h1>
 
+<div class="d-flex justify-content-end">
+  <a class="btn btn-primary" href="{% url 'crear-prestamo' %}">Nuevo Prestamo</a>
 
+</div>
 <!-- Fin encabezado -->
 
 {% if prestamos %}

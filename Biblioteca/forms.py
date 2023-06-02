@@ -51,9 +51,10 @@ class PrestamoForm(ModelForm):
     class Meta:
         model = PrestamoLibro
         fields = '__all__'
+        exclude = ['fecha_devolucion']
 
 class PrestamoActualizarForm(ModelForm):
     class Meta:
         model = PrestamoLibro
         fields = '__all__'
-        exclude = ['activo']
+        exclude = ['fecha_devolucion']

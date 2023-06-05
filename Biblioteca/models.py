@@ -21,8 +21,6 @@ class Libro(models.Model):
     def __str__(self):
         return f'{self.titulo}'
 
-#26_05_2023
-#Cambio en el capo activo, agregado True por default
 class Socio(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
@@ -43,7 +41,7 @@ class Empleado(models.Model):
 
 class PrestamoLibro(models.Model):
     fecha_prestamos = models.DateField(auto_now=True)
-    fecha_devolucion = models.DateField(default=lambda: datetime.now()+timedelta(days=2))
+    fecha_devolucion = models.DateField(default=(datetime.now() + timedelta(days=2)))
     socio = models.ForeignKey(Socio, on_delete=models.SET_NULL, null=True)
     empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL, null=True)
     libro = models.ForeignKey(Libro, on_delete=models.SET_NULL, null=True)

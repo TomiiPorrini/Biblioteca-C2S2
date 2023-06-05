@@ -19,7 +19,7 @@ def crear_empleado(request):
     
     if request.method == 'POST':
         form = EmpleadoForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data['nombre'].isalpha() and form.cleaned_data['apellido'].isalpha() and form.cleaned_data['numero_legajo'].isnumeric():
             form.save()
             return redirect('empleados')
 
@@ -55,15 +55,14 @@ def modificar_empleado(request, id):
         form = EmpleadoForm(request.POST)
         
         if form.is_valid():
-            # form.save()
             print("Todo salio bien")
             
+            if form.cleaned_data['nombre'].isalpha() and form.cleaned_data['apellido'].isalpha() and form.cleaned_data['numero_legajo'].isnumeric():
             
-            empleadoEditar.nombre = form.cleaned_data['nombre']
-            empleadoEditar.apellido = form.cleaned_data['apellido']
-            empleadoEditar.numero_legajo = form.cleaned_data['numero_legajo']
-            
-            empleadoEditar.save()
+                empleadoEditar.nombre = form.cleaned_data['nombre']
+                empleadoEditar.apellido = form.cleaned_data['apellido']
+                empleadoEditar.numero_legajo = form.cleaned_data['numero_legajo']
+                empleadoEditar.save()
             return redirect('empleados')
         else:
             print("algo salio mal")
@@ -89,7 +88,7 @@ def crear_autor(request):
     
     if request.method == 'POST':
         form = AutorForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data['nombre'].isalpha() and form.cleaned_data['apellido'].isalpha() and form.cleaned_data['nacionalidad'].isalpha():
             form.save()
             return redirect('autores')
     
@@ -123,14 +122,12 @@ def modificar_autor(request, id):
     if request.method == 'POST':
         form = AutorActualizarForm(request.POST)
         if form.is_valid():
-            if form.has_changed():
-                print('El form fue modificado')
-                # form.save()
+            if form.has_changed() and form.cleaned_data['nombre'].isalpha() and form.cleaned_data['apellido'].isalpha() and form.cleaned_data['nacionalidad'].isalpha():
+                
                 autor.nombre = form.cleaned_data['nombre']
                 autor.apellido = form.cleaned_data['apellido']
                 autor.nacionalidad = form.cleaned_data['nacionalidad']
                 autor.save()
-                #print("Datos cargados con éxito.")
                 return redirect('autores')
         else:
                 print("Hubo un error al cargar los datos del form.")
@@ -157,8 +154,9 @@ def crear_socio(request):
     form = SocioForm()
     if request.method == 'POST':
         form = SocioForm(request.POST)
-        form.save()
-        form = SocioForm()
+        if form.is_valid() and form.cleaned_data['nombre'].isalpha() and form.cleaned_data['apellido'].isalpha():
+            form.save()
+
         return redirect('socios')
     else:
         print ("Error")
@@ -179,7 +177,7 @@ def modificar_socio(request, id):
 
         form = SocioForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data['nombre'].isalpha() and form.cleaned_data['apellido'].isalpha():
             socioEditar.nombre = form.cleaned_data['nombre']
             socioEditar.apellido = form.cleaned_data['apellido']
             socioEditar.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
@@ -222,7 +220,7 @@ def crear_libro(request):
     form = LibroForm()
     if request.method == 'POST':
         form = LibroForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data['titulo'].isalpha() and form.cleaned_data['descripcion'].isalpha():
             form.save()
             return redirect('libros')
 
@@ -246,7 +244,7 @@ def modificar_libro(request, id):
 
         form = LibroForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data['titulo'].isalpha() and form.cleaned_data['descripcion'].isalpha():
             libroEditar.titulo = form.cleaned_data['titulo']
             libroEditar.descripcion = form.cleaned_data['descripcion']
             libroEditar.isbn = form.cleaned_data['isbn']

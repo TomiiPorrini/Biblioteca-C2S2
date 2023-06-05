@@ -220,7 +220,7 @@ def crear_libro(request):
     form = LibroForm()
     if request.method == 'POST':
         form = LibroForm(request.POST)
-        if form.is_valid() and form.cleaned_data['titulo'].isalpha() and form.cleaned_data['descripcion'].isalpha():
+        if form.is_valid():
             form.save()
             return redirect('libros')
 

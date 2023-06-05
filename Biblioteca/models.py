@@ -1,5 +1,6 @@
 from django.db import models
-
+from datetime import timedelta
+from datetime import datetime
 # Create your models here.
 class Autor(models.Model):
     nombre = models.CharField(max_length=50)
@@ -41,8 +42,8 @@ class Empleado(models.Model):
         return f'{self.nombre} {self.apellido}'
 
 class PrestamoLibro(models.Model):
-    fecha_prestamos = models.DateField(auto_now_add=True)
-    fecha_devolucion = models.DateField(auto_now_add=True)
+    fecha_prestamos = models.DateField(auto_now=True)
+    fecha_devolucion = models.DateField(default=lambda: datetime.now()+timedelta(days=2))
     socio = models.ForeignKey(Socio, on_delete=models.SET_NULL, null=True)
     empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL, null=True)
     libro = models.ForeignKey(Libro, on_delete=models.SET_NULL, null=True)

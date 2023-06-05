@@ -8,11 +8,13 @@ from datetime import date
 # EMPLEADOS
 
 def empleados(request):
+    """Obtiene todos los datos de la entidad y los muestra en un listado"""
     empleados = Empleado.objects.all()
 
     return render(request, 'listado-empleados.html', {'empleados': empleados})
 
 def crear_empleado(request):
+    """Crea una la entidad empleado por medio de un formulario donde obtiene sus datos."""
     form = EmpleadoForm()
     
     if request.method == 'POST':
@@ -25,19 +27,21 @@ def crear_empleado(request):
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
 
 def activar_empleado(request, id):
+    """coloca el valor True en el campo activo de la entidad."""
     empleado = Empleado.objects.filter(id=id).first()
     empleado.activo=True
     empleado.save()
     return redirect('empleados')
 
 def desactivar_empleado(request, id):
+    """coloca el valor False en el campo activo de la entidad."""
     empleado = Empleado.objects.filter(id=id).first()
     empleado.activo=False
     empleado.save()
     return redirect('empleados')
 
 def modificar_empleado(request, id):
-    
+    """Modifica los datos de una entidad existente por medio de un formulario"""
     empleadoEditar = get_object_or_404(Empleado, id = id)
 
     form = EmpleadoActualizarForm(initial={
@@ -67,6 +71,7 @@ def modificar_empleado(request, id):
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Actualizar empleado'})
 
 def eliminar_empleado(request, id):
+    """Elimina un registro de la entidad empleado"""
     empleado = Empleado.objects.get(id=id)
     empleado.delete()
     return redirect('empleados')
@@ -74,10 +79,12 @@ def eliminar_empleado(request, id):
 # AUTORES
 
 def autores(request):
+    """Obtiene todos los datos de la entidad y los muestra en un listado"""
     autores = Autor.objects.all()
     return render(request, 'listado-autores.html', {'autores': autores})
 
 def crear_autor(request):
+    """Crea una la entidad autor por medio de un formulario donde obtiene sus datos."""
     form = AutorForm()
     
     if request.method == 'POST':
@@ -89,18 +96,21 @@ def crear_autor(request):
     return render(request, 'crear-editar-autor.html', {'form': form, 'submit': 'Crear Autor'})
 
 def activar_autor(request, id):
+    """coloca el valor True en el campo activo de la entidad."""
     autor = Autor.objects.filter(id=id).first()
     autor.activo = True
     autor.save()
     return redirect('autores')
 
 def desactivar_autor(request,id):
+    """coloca el valor False en el campo activo de la entidad."""
     autor = Autor.objects.filter(id=id).first()
     autor.activo = False
     autor.save()
     return redirect('autores')
 
 def modificar_autor(request, id):
+    """Modifica los datos de una entidad existente por medio de un formulario"""
     autor = get_object_or_404(Autor, id = id)
 
     form = AutorActualizarForm(initial={
@@ -130,6 +140,7 @@ def modificar_autor(request, id):
         'submit' : "Actualizar Autor"})
 
 def eliminar_autor(request, id):
+    """Elimina un registro de la entidad autor"""
     autor = Autor.objects.get(id=id)
     autor.delete()
     return redirect('autores')
@@ -137,10 +148,12 @@ def eliminar_autor(request, id):
 # SOCIOS
 
 def socios(request):
+    """Obtiene todos los datos de la entidad y los muestra en un listado"""
     socios = Socio.objects.all()
     return render(request, 'listado-socios.html', {'socios': socios})
 
 def crear_socio(request):
+    """Crea una la entidad socio por medio de un formulario donde obtiene sus datos."""
     form = SocioForm()
     if request.method == 'POST':
         form = SocioForm(request.POST)
@@ -153,7 +166,7 @@ def crear_socio(request):
     return render(request, 'crear-actualizar-socio.html', {'form': form, 'submit': 'Crear Socio'})
 
 def modificar_socio(request, id):
-
+    """Modifica los datos de una entidad existente por medio de un formulario"""
     socioEditar = get_object_or_404(Socio, id = id)
 
     form = SocioActualizarForm(initial = {
@@ -178,30 +191,34 @@ def modificar_socio(request, id):
     return render(request, 'crear-actualizar-socio.html', {'form': form, 'submit': 'Actualizar Socio'})
 
 def eliminar_socio(request, id):
+    """Elimina un registro de la entidad socio"""
     socio = Socio.objects.filter(id = id).first()
     socio.delete()
     return redirect('socios')
 
 def activar_socio(request,id):
+    """coloca el valor True en el campo activo de la entidad."""
     socio = Socio.objects.filter(id=id).first()
     socio.activo = True
     socio.save()
     return redirect('socios')
 
 def desactivar_socio(request,id):
+    """coloca el valor False en el campo activo de la entidad."""
     socio = Socio.objects.filter(id=id).first()
     socio.activo = False
     socio.save()
     return redirect('socios')  
 
-
 # LIBROS
 
 def libros(request):
+    """Obtiene todos los datos de la entidad y los muestra en un listado"""
     libros = Libro.objects.all()
     return render(request, 'listado-libros.html', {'libros': libros})
 
 def crear_libro(request):
+    """Crea una la entidad libro por medio de un formulario donde obtiene sus datos."""
     form = LibroForm()
     if request.method == 'POST':
         form = LibroForm(request.POST)
@@ -215,7 +232,7 @@ def crear_libro(request):
     return render(request, 'crear-actualizar-libro.html', {'form': form, 'submit': 'Crear Libro'})
 
 def modificar_libro(request, id):
-
+    """Modifica los datos de una entidad existente por medio de un formulario"""
     libroEditar = get_object_or_404(Libro, id = id)
 
     form = LibroActualizarForm(initial = {
@@ -242,18 +259,21 @@ def modificar_libro(request, id):
     return render(request, 'crear-actualizar-libro.html', {'form': form, 'submit': 'Actualizar Libro'})
 
 def activar_libro(request,id):
+    """coloca el valor True en el campo activo de la entidad."""
     libro = Libro.objects.filter(id=id).first()
     libro.activo = True
     libro.save()
     return redirect('libros')
 
 def desactivar_libro(request,id):
+    """coloca el valor False en el campo activo de la entidad."""
     libro = Libro.objects.filter(id=id).first()
     libro.activo = False
     libro.save()
     return redirect('libros')
 
 def eliminar_libro(request, id):
+    """Elimina un registro de la entidad libro"""
     libros = Libro.objects.get(id=id)
     libros.delete()
     return redirect('libros')
@@ -261,11 +281,12 @@ def eliminar_libro(request, id):
 # PRESTAMOS LIBROS
 
 def prestamos(request):
+    """Obtiene todos los datos de la entidad y los muestra en un listado"""
     prestamos = PrestamoLibro.objects.all()
-
     return render(request, 'listado-prestamos.html', {'prestamos': prestamos})
 
 def crear_prestamo(request):
+    """Crea una la entidad prestamoLibro por medio de un formulario donde obtiene sus datos."""
     form = PrestamoForm()
     
     if request.method == 'POST':
@@ -280,9 +301,8 @@ def crear_prestamo(request):
     
     return render(request, 'crear-actualizar-prestamo.html', {'form': form, 'submit': 'Crear prestamo'})
 
-
 def modificar_prestamo(request, id):
-    
+    """Modifica los datos de una entidad existente por medio de un formulario"""
     prestamoEditar = get_object_or_404(PrestamoLibro, id = id)
 
     form = PrestamoActualizarForm(initial={
@@ -311,6 +331,7 @@ def modificar_prestamo(request, id):
     return render(request, 'crear-actualizar-prestamo.html', {'form': form, 'submit': 'Actualizar Prestamo'})
 
 def eliminar_prestamo(request, id):
+    """Elimina un registro de la entidad PrestamoLibro"""
     prestamo = PrestamoLibro.objects.get(id=id)
     prestamo.delete()
     return redirect('prestamos')

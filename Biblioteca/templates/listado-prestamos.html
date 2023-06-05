@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block 'contenido' %}
+
+<!-- ENCABEZADO -->
+<h1>Listado de Prestamos</h1>
+
+<div class="d-flex justify-content-end">
+  <a class="btn btn-primary" href="{% url 'crear-prestamo' %}">Nuevo Prestamo</a>
+
+</div>
+<!-- Fin encabezado -->
+
+{% if prestamos %}
+
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Fecha de Prestamo</th>
+      <th scope="col">Fecha de Devolucion</th>
+      <th scope="col">Socio</th>
+      <th scope="col">Empleado</th>
+      <th scope="col">Libro</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in prestamos %}
+    <tr>
+      <th scope="row">{{ p.id }}</th>
+      <td>{{ p.fecha_prestamos }}</td>
+      <td>{{ p.fecha_devolucion }}</td>
+      <td>{{ p.socio }}</td>
+      <td>{{ p.empleado }}</td>
+      <td>{{ p.libro }}</td>
+      
+      <!-- modificar -->
+        <td>
+            <a class="btn border" href="{% url 'modificar-prestamo' p.id %}">
+            <i class="fa-solid fa-user-pen" style="color: #000000;"></i>
+            </a>
+        </td>
+
+      <!-- eliminar -->
+      <td>
+        <a class="btn border" href="{% url 'eliminar-prestamo' p.id %}">
+          <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
+        </a>
+      </td>
+      {% endfor %}
+
+  
+  </tbody>
+</table>
+
+{% else %}
+<h3>No hay Prestamos</h3>
+{% endif %}
+
+{% endblock %}

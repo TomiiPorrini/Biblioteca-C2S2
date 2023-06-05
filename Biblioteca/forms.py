@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Empleado, Autor, Libro, Socio
+from .models import Empleado, Autor, Libro, Socio, PrestamoLibro
 
 
 class EmpleadoForm(ModelForm):
@@ -47,3 +47,14 @@ class LibroActualizarForm(ModelForm):
         fields = '__all__'
         exclude = ['activo']
 
+class PrestamoForm(ModelForm):
+    class Meta:
+        model = PrestamoLibro
+        fields = '__all__'
+        exclude = ['fecha_devolucion']
+
+class PrestamoActualizarForm(ModelForm):
+    class Meta:
+        model = PrestamoLibro
+        fields = '__all__'
+        exclude = ['fecha_devolucion']

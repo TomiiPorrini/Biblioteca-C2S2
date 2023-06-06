@@ -10,12 +10,12 @@ class EmpleadoForm(ModelForm):
 class EmpleadoActualizarForm(ModelForm):
     class Meta:
         model = Empleado
-        fields = ['nombre','apellido','numero_legajo', 'activo']
+        fields = ['nombre','apellido','numero_legajo']
 
 class AutorForm(ModelForm):
     class Meta:
         model = Autor
-        fields = ['nombre', 'apellido', 'nacionalidad', 'activo']
+        fields = ['nombre', 'apellido', 'nacionalidad']
 
 class AutorActualizarForm(ModelForm):
     class Meta:

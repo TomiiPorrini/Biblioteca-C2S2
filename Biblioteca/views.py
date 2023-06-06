@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import EmpleadoForm, EmpleadoActualizarForm, AutorForm, AutorActualizarForm, LibroForm, LibroActualizarForm, SocioForm, SocioActualizarForm, PrestamoForm, PrestamoActualizarForm
 from .models import Empleado, Autor, Libro, Socio, PrestamoLibro
@@ -7,6 +6,9 @@ from datetime import date
 
 # EMPLEADOS
 
+def campos_validos_empleado(formulario):
+    return formulario.cleaned_data['nombre'].isalpha() and formulario.cleaned_data['apellido'].isalpha() and formulario.cleaned_data['numero_legajo'].isnumeric()
+        
 def empleados(request):
     """Obtiene todos los datos de la entidad y los muestra en un listado"""
     empleados = Empleado.objects.all()
@@ -19,10 +21,9 @@ def crear_empleado(request):
     
     if request.method == 'POST':
         form = EmpleadoForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and campos_validos_empleado(form):
             form.save()
             return redirect('empleados')
-
     
     return render(request, 'crear-actualizar-empleado.html', {'form': form, 'submit': 'Crear empleado'})
 
@@ -54,15 +55,11 @@ def modificar_empleado(request, id):
         
         form = EmpleadoForm(request.POST)
         
-        if form.is_valid():
-            # form.save()
-            print("Todo salio bien")
-            
+        if form.is_valid() and campos_validos_empleado(form):
             
             empleadoEditar.nombre = form.cleaned_data['nombre']
             empleadoEditar.apellido = form.cleaned_data['apellido']
             empleadoEditar.numero_legajo = form.cleaned_data['numero_legajo']
-            
             empleadoEditar.save()
             return redirect('empleados')
         else:
@@ -78,6 +75,9 @@ def eliminar_empleado(request, id):
 
 # AUTORES
 
+def campos_validos_autor(formulario):
+    return formulario.cleaned_data['nombre'].isalpha() and formulario.cleaned_data['apellido'].isalpha() and formulario.cleaned_data['nacionalidad'].isalpha()
+
 def autores(request):
     """Obtiene todos los datos de la entidad y los muestra en un listado"""
     autores = Autor.objects.all()
@@ -89,7 +89,7 @@ def crear_autor(request):
     
     if request.method == 'POST':
         form = AutorForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and campos_validos_autor(form):
             form.save()
             return redirect('autores')
     
@@ -123,14 +123,12 @@ def modificar_autor(request, id):
     if request.method == 'POST':
         form = AutorActualizarForm(request.POST)
         if form.is_valid():
-            if form.has_changed():
-                print('El form fue modificado')
-                # form.save()
+            if form.has_changed() and campos_validos_autor(form):
+                
                 autor.nombre = form.cleaned_data['nombre']
                 autor.apellido = form.cleaned_data['apellido']
                 autor.nacionalidad = form.cleaned_data['nacionalidad']
                 autor.save()
-                #print("Datos cargados con éxito.")
                 return redirect('autores')
         else:
                 print("Hubo un error al cargar los datos del form.")
@@ -147,6 +145,9 @@ def eliminar_autor(request, id):
 
 # SOCIOS
 
+def campos_validos_socio(formulario):
+    return formulario.cleaned_data['nombre'].isalpha() and formulario.cleaned_data['apellido'].isalpha()
+
 def socios(request):
     """Obtiene todos los datos de la entidad y los muestra en un listado"""
     socios = Socio.objects.all()
@@ -157,11 +158,12 @@ def crear_socio(request):
     form = SocioForm()
     if request.method == 'POST':
         form = SocioForm(request.POST)
-        form.save()
-        form = SocioForm()
+        if form.is_valid() and campos_validos_socio(form):
+            form.save()
+
         return redirect('socios')
     else:
-        print ("Error")
+        print("Error")
 
     return render(request, 'crear-actualizar-socio.html', {'form': form, 'submit': 'Crear Socio'})
 
@@ -179,7 +181,7 @@ def modificar_socio(request, id):
 
         form = SocioForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid() and campos_validos_socio(form):
             socioEditar.nombre = form.cleaned_data['nombre']
             socioEditar.apellido = form.cleaned_data['apellido']
             socioEditar.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
@@ -187,7 +189,7 @@ def modificar_socio(request, id):
             socioEditar.save()
             return redirect('socios')
         else:
-            print ('Error algo salio mal')
+            print('Error algo salio mal')
     return render(request, 'crear-actualizar-socio.html', {'form': form, 'submit': 'Actualizar Socio'})
 
 def eliminar_socio(request, id):
@@ -227,7 +229,7 @@ def crear_libro(request):
             return redirect('libros')
 
     else:
-        print ("Error")
+        print("Error")
 
     return render(request, 'crear-actualizar-libro.html', {'form': form, 'submit': 'Crear Libro'})
 
@@ -255,7 +257,7 @@ def modificar_libro(request, id):
             libroEditar.save()
             return redirect('libros')
         else:
-            print ('Error algo salio mal')
+            print('Error algo salio mal')
     return render(request, 'crear-actualizar-libro.html', {'form': form, 'submit': 'Actualizar Libro'})
 
 def activar_libro(request,id):
@@ -280,6 +282,9 @@ def eliminar_libro(request, id):
 
 # PRESTAMOS LIBROS
 
+def campos_validos_prestamo(formulario):
+    return formulario.cleaned_data['socio'].activo and formulario.cleaned_data['empleado'].activo and formulario.cleaned_data['libro'].activo
+
 def prestamos(request):
     """Obtiene todos los datos de la entidad y los muestra en un listado"""
     prestamos = PrestamoLibro.objects.all()
@@ -291,7 +296,7 @@ def crear_prestamo(request):
     
     if request.method == 'POST':
         form = PrestamoForm(request.POST)
-        if form.is_valid() and form.cleaned_data['socio'].activo and form.cleaned_data['empleado'].activo and form.cleaned_data['libro'].activo:
+        if form.is_valid() and campos_validos_prestamo(form):
             form.save()
 
             return redirect('prestamos')
@@ -316,9 +321,9 @@ def modificar_prestamo(request, id):
         
         form = PrestamoForm(request.POST)
         
-        if form.is_valid() and form.cleaned_data['socio'].activo and form.cleaned_data['empleado'].activo and form.cleaned_data['libro'].activo:
+        if form.is_valid() and campos_validos_prestamo(form):
             
-            print("Todo salio bien")
+            
             prestamoEditar.socio = form.cleaned_data['socio']
             prestamoEditar.empleado = form.cleaned_data['empleado']
             prestamoEditar.libro = form.cleaned_data['libro']

@@ -3,6 +3,8 @@ from Biblioteca import views
 
 
 urlpatterns = [
+    path("", views.home, name='home'),
+
     path("empleados/nuevo/", views.crear_empleado, name='crear-empleado'),
     path('empleados/activar/<int:id>', views.activar_empleado, name='activar-empleado'),
     path('empleados/desactivar/<int:id>', views.desactivar_empleado, name='desactivar-empleado'),

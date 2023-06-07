@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 
 {% block 'contenido' %}
-    <form action="#" method="post">
-
-        {% csrf_token %}
+<div class="container row justify-content-md-center pt-5">
+    <div class="col col-lg-4">
+      </div>
+      <div class="col-md-4">
+        <form class="container d-flex flex-column align-items-center py-5 px-1 border border-4 border-info rounded" action="#" method="post">
+            {% csrf_token %}
 
         {{ form.as_p }}
 
-        <input type="submit" value="{{submit}}">
-        <a href="{% url 'prestamos' %}" >Volver al listado</a>
+        <input class="btn btn-info" type="submit" value="{{submit}}">
+        <a class="btn btn-light mt-3" href="{% url 'prestamos' %}" >Volver al listado</a>
     </form>
+      </div>
+      <div class="col col-lg-4">
+      </div>
+</div>
 
 {% endblock %}

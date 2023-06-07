@@ -1,0 +1,20 @@
+
+<head>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+{% extends 'base.html' %}
+
+{% block 'contenido' %}
+<div class="prueba">
+    <h1>Bienvenido a biblioteca Alkemy</h1>
+    <p>Seleccione una de las opciones disponibles:</p>
+    <ul style="list-style: none;">
+        <li class="my-2"><a class="btn btn-primary" href="">Agregar un Autor</a></li>
+        <li class="my-2"><a class="btn btn-warning" href="">Agregar un Empleado</a></li>
+        <li class="my-2"><a class="btn btn-success" href="">Agregar un Socio</a></li>
+        <li class="my-2"><a class="btn btn-secondary" href="">Agregar un Libro</a></li>
+        <li class="my-2"><a class="btn btn-info" href="">Agregar un Prestamo</a></li>
+    </ul>
+
+</div>
+{% endblock %}

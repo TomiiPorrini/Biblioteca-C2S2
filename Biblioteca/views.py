@@ -6,6 +6,9 @@ from datetime import date
 
 # EMPLEADOS
 
+def home(request):
+    return render(request, 'index.html')
+
 def campos_validos_empleado(formulario):
     return formulario.cleaned_data['nombre'].isalpha() and formulario.cleaned_data['apellido'].isalpha() and formulario.cleaned_data['numero_legajo'].isnumeric()
         

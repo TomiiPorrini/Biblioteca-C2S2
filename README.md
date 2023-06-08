@@ -8,15 +8,15 @@
 ```
 Ahora que ya tenemos todas las dependencias instaladas en nuestra computadora, entonces podemos pasar al siguiente paso.
 
-3. Ahora, ejecutaremos el proyecto con el siguiente comando:
+2. Ahora, ejecutaremos el proyecto con el siguiente comando:
 
 ```
     py manage.py runserver
 ```
 
-4. Listo, ahora en la consola te deberia salir una imagen como las siguiente y deberas hacer ctrl + click en la url que te señalo adelante:
+3. Listo, ahora en la consola te deberia salir una imagen como las siguiente y deberas hacer ctrl + click en la url que te señalo adelante:
 
-![Imagen de consola](./imagenesReadme/inicio.jpeg)
+![Imagen de consola](../Biblioteca-C2S2/imagenesReadme/Inicio.jpeg)
 > P/D: Intentá no romperlo 😅
 
 # Funcionalidades por entidad

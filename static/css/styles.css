@@ -93,6 +93,7 @@ footer marquee{
 }
 
 .form-new-autor #id_nacionalidad{
+    width: 11.5rem;
     margin-left: 1rem;
 }
 

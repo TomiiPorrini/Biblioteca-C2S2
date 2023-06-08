@@ -5,7 +5,7 @@
 <!-- ENCABEZADO -->
 <h1>Listado de Autores</h1>
 
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end my-2">
   <a class="btn btn-primary" href="{% url 'crear-autor' %}">Nuevo autor</a>
 
 </div>
@@ -13,7 +13,7 @@
 
 {% if autores %}
 
-<table class="table text-center">
+<table class="table-autores table table-hover text-center text-white">
   <thead>
     <tr>
       <th scope="col">Id</th>
@@ -26,13 +26,13 @@
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody >
     {% for a in autores %}
     <tr>
       <th scope="row">{{ a.id }}</th>
       <td>{{ a.nombre }}</td>
       <td>{{ a.apellido }}</td>
-      <td>{{ a.nacionalidad }}</td>
+      <td>{{ a.nacionalidad.name }}</td>
       {% if a.activo %}
       <td>
         <i class="fa-solid fa-circle-check" style="color: #80ff00;"></i>

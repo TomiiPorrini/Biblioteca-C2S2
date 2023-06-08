@@ -5,12 +5,12 @@
     <div class="col col-lg-4">
       </div>
       <div class="col-md-4">
-        <form class="container d-flex flex-column align-items-center py-5 px-1 border border-4 border-success rounded" action="#" method="post">
+        <form class="container form-new-socio d-flex flex-column align-items-center py-5 px-1 border border-4 border-success rounded-5" action="#" method="post">
             {% csrf_token %}
 
         {{ form.as_p }}
 
-        <input class="btn btn-success" type="submit" value="{{submit}}">
+        <input class="btn btn-success mt-3" type="submit" value="{{submit}}">
         <a class="btn btn-light mt-3" href="{% url 'socios' %}">Volver al listado</a>
     </form>
       </div>

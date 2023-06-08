@@ -1,11 +1,12 @@
 from django.db import models
 from datetime import timedelta
 from datetime import datetime
+from django_countries.fields import CountryField
 # Create your models here.
 class Autor(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    nacionalidad = models.CharField(max_length=50)
+    nacionalidad = CountryField(blank_label="(select country)")
     activo = models.BooleanField(default=True)
     
     def __str__(self):

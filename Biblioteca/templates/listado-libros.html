@@ -5,15 +5,15 @@
   <!-- ENCABEZADO -->
 <h1>Listado de Libros</h1>
 
-<div class="d-flex justify-content-end">
-  <a class="btn btn-secondary" href="{% url 'crear-libro' %}">Nuevo libro</a>
+<div class="d-flex justify-content-end my-2">
+  <a class="btn btn-libro" href="{% url 'crear-libro' %}">Nuevo libro</a>
 
 </div>
 <!-- Fin encabezado -->
 
 
   {% if libros %}
-  <table class="table text-center">
+  <table class="table-libros table table-hover text-center">
     <thead>
       <tr>
         <th scope="col">Id</th>

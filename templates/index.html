@@ -4,7 +4,7 @@
 
 <div class="container text-center">
     <div class="row">
-        <div class="col-8 bg-white">
+        <!-- <div class="col-8 bg-white">
             <h1>aca van a ir los graficos</h1>
             <div class="row">
                 <div class="col bg-primary">
@@ -17,25 +17,65 @@
                     grafico 2
                 </div>
             </div>
-        </div>
-        <div class="col-4 prueba">
-            <div style="background-color: darkgrey;">
+        </div> -->
+        <div class="prueba">
+            <div class="titulo-home">
                 <h1>Bienvenido a biblioteca Alkemy</h1>
                 <p>Seleccione una de las opciones disponibles:</p>
             </div>
-            <ul style="list-style: none;">
-                <li class="my-2"><a class="btn btn-primary" href="">Agregar un Autor</a></li>
-                <li class="my-2"><a class="btn btn-warning" href="">Agregar un Empleado</a></li>
-                <li class="my-2"><a class="btn btn-success" href="">Agregar un Socio</a></li>
-                <li class="my-2"><a class="btn btn-secondary" href="">Agregar un Libro</a></li>
-                <li class="my-2"><a class="btn btn-info" href="">Agregar un Prestamo</a></li>
-            </ul>
+
+            <div class="d-flex">
+
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/autor1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a href="{% url 'crear-autor' %}" class="btn btn-primary">Agregar un Autor</a>
+                    </div>
+                </div>
+     
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/socio2.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a href="{% url 'crear-socio' %}" class="btn btn-success">Agregar un Socio</a>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/libros.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a href="{% url 'crear-libro' %}" class="btn btn-libro">Agregar un Libro</a>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/prestamo.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a href="{% url 'crear-prestamo' %}" class="btn btn-prestamo">Agregar un Prestamo</a>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/empleado.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a href="{% url 'crear-empleado' %}" class="btn btn-empleado">Agregar un Empleado</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <!-- <ul style="list-style: none;">
+                <li class="my-2"><a class="btn btn-primary" href="{% url 'crear-autor' %}">Agregar un Autor</a></li>
+                <li class="my-2"><a class="btn btn-warning" href="{% url 'crear-empleado' %}">Agregar un Empleado</a></li>
+                <li class="my-2"><a class="btn btn-success" href="{% url 'crear-socio' %}">Agregar un Socio</a></li>
+                <li class="my-2"><a class="btn btn-secondary" href="{% url 'crear-libro' %}">Agregar un Libro</a></li>
+                <li class="my-2"><a class="btn btn-info" href="{% url 'crear-prestamo' %}">Agregar un Prestamo</a></li>
+            </ul> -->
         </div>
     </div>
 </div>
 
-<div class="prueba">
 
-
-</div>
 {% endblock %}

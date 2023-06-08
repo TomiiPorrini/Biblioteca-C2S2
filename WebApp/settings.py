@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Biblioteca',
     'api',
+    "django_countries",
 ]
 
 MIDDLEWARE = [

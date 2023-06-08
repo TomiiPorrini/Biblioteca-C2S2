@@ -5,14 +5,14 @@
 <!-- ENCABEZADO -->
 <h1>Listado de Socios</h1>
 
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end my-2">
   <a class="btn btn-success" href="{% url 'crear-socio' %}">Nuevo socio</a>
 
 </div>
 <!-- Fin encabezado -->
 
 {% if socios %}
-  <table class="table text-center">
+  <table class="table-socios table table-hover text-center text-white">
     <thead>
       <tr>
         <th scope="col">Id</th>
@@ -51,7 +51,7 @@
 
         <td>
           <a class="btn border" href="{% url 'activar-socio' s.id %}">
-            <i class="fa-solid fa-person-circle-check" style="color: #19ad05; width: 1em;"></i>
+            <i class="fa-solid fa-person-circle-check" style="color: #80ff00; width: 1em;"></i>
           </a>
         </td>
 

@@ -5,15 +5,15 @@
 <!-- ENCABEZADO -->
 <h1>Listado de Prestamos</h1>
 
-<div class="d-flex justify-content-end">
-  <a class="btn btn-info" href="{% url 'crear-prestamo' %}">Nuevo Prestamo</a>
+<div class="d-flex justify-content-end my-2">
+  <a class="btn btn-prestamo" href="{% url 'crear-prestamo' %}">Nuevo Prestamo</a>
 
 </div>
 <!-- Fin encabezado -->
 
 {% if prestamos %}
 
-<table class="table text-center">
+<table class="table-prestamos table table-hover text-center text-white">
   <thead>
     <tr>
       <th scope="col">Id</th>

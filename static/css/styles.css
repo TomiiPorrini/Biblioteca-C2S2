@@ -3,6 +3,147 @@ body{
     backdrop-filter: blur(6px);
 }
 
-.integrantes{
-    color: red;
+footer marquee{
+    background:rgba(197, 196, 196, 0.141);
+}
+
+.titulo-home{
+    background-color: #ededed97;
+}
+
+
+.contenido{
+    min-height: 37.3rem;
+}
+
+
+.table-autores{
+    background-color: #004cff61;
+    color: #ededed;
+}
+
+.table-socios{
+    background-color: #0f6e186b;
+    color: #ededed;
+}
+
+.table-libros{
+    background-color:rgba(254, 159, 34, 0.666);
+}
+
+.table-prestamos{
+    background-color:  #be2ad8a5;
+}
+
+.table-empleados{
+    background-color: #9d7954a4;
+}
+
+
+
+.card-img-top {
+    max-width: 16em;
+    height: 10em;
+    object-fit: cover;
+}
+
+.card-body, .card{
+    background-color: rgba(197, 196, 196, 0.329);
+}
+
+.btn-libro{
+    background-color: rgb(254, 159, 34);
+}
+
+.btn-libro:hover{
+    color: #ededed;
+    background-color: rgb(207, 119, 5);
+}
+
+
+.btn-prestamo{
+    color: #ededed;
+    background-color: #be2ad8;
+}
+
+.btn-prestamo:hover{
+    color: #ededed;
+    background-color: #9923ae;
+}
+
+
+
+.btn-empleado{
+    color: #ededed;
+    background-color: #b2895f;
+}
+
+.btn-empleado:hover{
+    color: #ededed;
+    background-color: #a27b53;
+}
+
+.form-new-autor, .form-new-empleado, .form-new-libro, .form-new-prestamo, .form-new-socio{
+    background-color: rgb(217, 217, 217);
+}
+
+
+.form-new-autor #id_nombre, .form-new-autor #id_apellido{
+    margin-left: 3rem;
+}
+
+.form-new-autor #id_nacionalidad{
+    margin-left: 1rem;
+}
+
+.form-new-socio #id_nombre, .form-new-socio #id_apellido{
+    margin-left: 4rem;
+}
+
+.form-new-libro{
+    border: .2rem solid rgb(254, 159, 34);
+    border-radius: 30px;
+}
+
+.form-new-libro #id_titulo, .form-new-libro #id_isbn{
+    margin-left: 4rem;
+}
+
+.form-new-libro #id_descripcion{
+    margin-left: 1rem;
+}
+
+.form-new-libro #id_autor{
+    margin-left: 6rem;
+}
+
+
+.form-new-prestamo{
+    border: .2rem solid #be2ad8;
+    border-radius: 30px;
+}
+.form-new-prestamo #id_socio{
+    margin-left: 3rem;
+}
+
+.form-new-prestamo #id_empleado{
+    margin-left: 2rem;
+}
+
+.form-new-prestamo #id_libro{
+    margin-left: 5.5rem;
+}
+
+
+.form-new-empleado{
+    border: .2rem solid #b2895f;
+    border-radius: 30px;
+}
+
+.form-new-empleado #id_nombre, .form-new-empleado #id_apellido{
+    margin-left: 4rem;
+}
+
+.form-new-empleado #id_numero_legajo{
+    margin-left: 1rem;
 }

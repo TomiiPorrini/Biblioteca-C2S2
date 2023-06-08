@@ -6,7 +6,7 @@ from django_countries.fields import CountryField
 class Autor(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    nacionalidad = CountryField(blank_label="(select country)")
+    nacionalidad = CountryField(blank_label="Selecciona un pais")
     activo = models.BooleanField(default=True)
     
     def __str__(self):

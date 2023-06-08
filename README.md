@@ -16,7 +16,7 @@ Ahora que ya tenemos todas las dependencias instaladas en nuestra computadora, e
 
 3. Listo, ahora en la consola te deberia salir una imagen como las siguiente y deberas hacer ctrl + click en la url que te señalo adelante:
 
-![Imagen de consola](../Biblioteca-C2S2/imagenesReadme/Inicio.jpeg)
+![Imagen de consola](./imagenesReadme/Inicio.jpeg)
 > P/D: Intentá no romperlo 😅
 
 # Funcionalidades por entidad

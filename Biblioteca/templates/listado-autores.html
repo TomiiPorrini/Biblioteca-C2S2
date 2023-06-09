@@ -2,6 +2,7 @@
 
 {% block 'contenido' %}
 
+
 <!-- ENCABEZADO -->
 <h1>Listado de Autores</h1>
 
@@ -20,6 +21,7 @@
       <th scope="col">Nombre</th>
       <th scope="col">Apellido</th>
       <th scope="col">Nacionalidad</th>
+      <th scope="col"></th>
       <th scope="col">Activo</th>
       <th scope="col"></th>
       <th scope="col"></th>
@@ -32,7 +34,7 @@
       <th scope="row">{{ a.id }}</th>
       <td>{{ a.nombre }}</td>
       <td>{{ a.apellido }}</td>
-      <td>{{ a.nacionalidad.name }}</td>
+      <td>{{ a.nacionalidad.name }} <img src='{{a.nacionalidad.flag}}'/></td>
       {% if a.activo %}
       <td>
         <i class="fa-solid fa-circle-check" style="color: #80ff00;"></i>

@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from .models import Empleado, Autor, Libro, Socio, PrestamoLibro
 
 
@@ -25,10 +26,20 @@ class AutorActualizarForm(ModelForm):
 
 #Formulario para crear nuevos socios
 # el campo activo de Socio por defecto es True
+
+
 class SocioForm(ModelForm):
     class Meta:
         model = Socio
         fields = ['nombre', 'apellido', 'fecha_nacimiento']
+        widgets = {
+            'fecha_nacimiento': forms.DateInput(
+                format=('%d/%m/%Y'),
+                attrs={'class': 'form-control', 
+                       'placeholder': 'Select a date',
+                       'type': 'date'  # <--- IF I REMOVE THIS LINE, THE INITIAL VALUE IS DISPLAYED
+                      }),
+        }
 
 class SocioActualizarForm(ModelForm):
     class Meta:
